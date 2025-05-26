@@ -20,5 +20,4 @@ MonoBehaviour:
   attackInterval: 1.5
   detectionRange: 10
   returnDistance: 15
-  attackRange: 2
-  dropItem: {fileID: 11400000, guid: 6b5537ffb90954aec95c1f68e56861d4, type: 2}
+  attackRange: 1
