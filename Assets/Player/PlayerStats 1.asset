@@ -19,4 +19,4 @@ MonoBehaviour:
   moveSpeed: 3
   jumpHeight: 3
   stamina: 100
-  staminaRegenRate: 5
+  staminaRegenRate: 10

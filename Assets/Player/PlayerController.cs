@@ -1,8 +1,25 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
+
 
 public class PlayerController : BaseCharacterController
 {
+
+    [Header("체력 관련")]
+    public Slider healthSlider;
+    public DamageFlashUI damageFlashUI;
+    public float invincibleTime = 1.5f;
+
+    [Header("스태미나 관련")]
+    public Slider staminaSlider;
+
+
+    private bool isInvincible = false;
+    
+
     public Transform cameraTransform;
     public float rotationSpeed = 10f;
 
@@ -18,6 +35,17 @@ public class PlayerController : BaseCharacterController
 
     private float currentStamina;
     private PlayerStats PlayerStats => (PlayerStats)stats;
+
+    [SerializeField] private float attackRange = 2f;      // 전방 공격 거리
+    [SerializeField] private float attackRadius = 1f;     // 원형 범위
+    [SerializeField] private LayerMask attackLayerMask;   // 공격 대상 레이어 (예: Enemy)
+
+
+    [Header("공격 이펙트")]
+    [SerializeField] private GameObject hitEffectPrefab;
+    [SerializeField] private Transform hitEffectSpawnPoint;
+
+
 
     protected override void Awake()
     {
@@ -35,12 +63,16 @@ public class PlayerController : BaseCharacterController
             if (CanJump())
                 TryJump();
         };
+        inputActions.Player.Attack.performed += _ => TryBasicAttack();
     }
 
     void OnEnable()
     {
         inputActions.Enable();
         currentStamina = PlayerStats.stamina;
+
+        UpdateStaminaUI();
+        UpdateHealthUI();
     }
 
     void OnDisable() => inputActions.Disable();
@@ -50,6 +82,7 @@ public class PlayerController : BaseCharacterController
         base.Update();
         HandleMovement();
         RegenerateStamina();
+        UpdateStaminaUI();
     }
 
     void HandleMovement()
@@ -129,4 +162,105 @@ public class PlayerController : BaseCharacterController
     {
         return !characterController.isGrounded && velocity.y > -0.2f && velocity.y <= 0f;
     }
+
+    public override void TakeDamage(int attackerPower)
+    {
+        
+        if (isDead || isInvincible) return;
+
+        float defensePercent = stats.defense / (stats.defense + 100f);
+        int damage = Mathf.RoundToInt(attackerPower * (1f - defensePercent));
+
+        currentHealth -= damage;
+        currentHealth = Mathf.Max(currentHealth, 0);
+        UpdateHealthUI();
+
+        if (damageFlashUI != null)
+            damageFlashUI.Flash();
+
+        if (currentHealth <= 0)
+            Die();
+        else
+            StartCoroutine(InvincibilityCoroutine());
+    }
+
+    private void UpdateHealthUI()
+    {
+        if (healthSlider == null) return;
+
+        healthSlider.maxValue = stats.maxHealth;  // ✅ maxHealth는 stats에서 가져옴
+        healthSlider.value = Mathf.Clamp(currentHealth, 0, stats.maxHealth);
+    }
+
+    private void UpdateStaminaUI()
+    {
+        if (staminaSlider == null) return;
+
+        staminaSlider.maxValue = PlayerStats.stamina;
+        staminaSlider.value = Mathf.Clamp(currentStamina, 0f, PlayerStats.stamina);
+    }
+
+
+    private IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(invincibleTime);
+        isInvincible = false;
+    }
+    protected override void Die()
+    {
+        base.Die();
+        Debug.Log("[Player] 사망 - 게임 오버 처리 시작");
+        StartCoroutine(DeathSequence());
+    }
+
+    private IEnumerator DeathSequence()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (FadeManager.Instance != null)
+            FadeManager.Instance.FadeToScene("GameOver");
+        else
+            SceneManager.LoadScene("GameOver");
+    }
+
+
+    void TryBasicAttack()
+    {
+        Debug.Log("🗡️ TryBasicAttack() 호출됨");
+        Vector3 attackOrigin = transform.position + transform.forward * attackRange * 0.5f;
+        Collider[] hitTargets = Physics.OverlapSphere(attackOrigin, attackRadius, attackLayerMask);
+
+      
+
+        foreach (Collider target in hitTargets)
+        {
+            BaseCharacterController enemy = target.GetComponent<BaseCharacterController>();
+            if (enemy != null && enemy != this)
+            {
+                enemy.TakeDamage(stats.attackPower);
+                Debug.Log($"[Attack] {target.name}에게 {stats.attackPower} 피해!");
+              
+
+                // ✅ 이펙트 생성 후 0.5초 뒤 삭제
+                if (hitEffectPrefab != null)
+                {
+                    Vector3 hitPos = target.ClosestPoint(transform.position);
+                    GameObject fx = Instantiate(hitEffectPrefab, hitPos, Quaternion.identity);
+                    Destroy(fx, 0.5f);
+                }
+            }
+        }
+
+      
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 attackOrigin = transform.position + transform.forward * attackRange * 0.5f;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackOrigin, attackRadius);
+    }
+
 }
