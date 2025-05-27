@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +21,12 @@ public class Resource : MonoBehaviour
         if (capacity <= 0)
         {
             Destroy(gameObject);
+        }
+
+        var player = FindObjectOfType<Player>();
+        if (player != null)
+        {
+            player.inventory.AddItem(itemToGive);
         }
     }
 }
