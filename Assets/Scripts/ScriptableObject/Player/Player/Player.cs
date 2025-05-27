@@ -5,17 +5,21 @@ using UnityEngine;
 public class Player : MonoBehaviour, IInventoryHolder
 {
     public Inventory inventory;
+<<<<<<< HEAD
     public PlayerStats baseStats;
 
     public float currentHealth;
     public float currentStamina;
     public float currentHunger;
     public float currentThirst;
+=======
+>>>>>>> 22004982856045d28e6b925938831d48acf7b099
 
     public Inventory GetInventory()
     {
         return inventory;
     }
+<<<<<<< HEAD
 
     private void Start()
     {
@@ -58,3 +62,6 @@ public class Player : MonoBehaviour, IInventoryHolder
     }
 }
 
+=======
+}
+>>>>>>> 22004982856045d28e6b925938831d48acf7b099

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/ScriptableObject/Item/Consumption.cs.meta
 guid: 7e98183aaefdc5a40a34ec0df9e40c0f
+========
+guid: 88aac2d5743c9c543aa2d77212220a43
+>>>>>>>> 22004982856045d28e6b925938831d48acf7b099:Assets/Scripts/ScriptableObject/Item/Equipment.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
