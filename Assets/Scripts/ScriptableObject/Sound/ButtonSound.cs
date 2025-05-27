@@ -1,9 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
 public class UIButtonSound : MonoBehaviour
 {
-    public void PlayClickSound()
+    void Awake()
     {
-        SoundEvents.OnUIClick?.Invoke();
+        GetComponent<Button>().onClick.AddListener(() =>
+        {
+            SoundEvents.OnUIClick?.Invoke();
+        });      
     }
 }
