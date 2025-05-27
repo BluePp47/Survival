@@ -1,12 +1,28 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 
-public class PlayerController : BaseCharacterController
+public class PlayerController : BaseCharacterController, IInventoryHolder
 {
+    public Inventory inventory;
+    public PlayerCondition condition;
+    public Transform dropPosition;
+
+    public ItemData itemData;
+
+    public Action onInventoryToggle;
+    public Action addItem;
+
+    public UIInventory uiInventory;
+
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
 
     [Header("체력 관련")]
     public Slider healthSlider;
@@ -68,8 +84,11 @@ public class PlayerController : BaseCharacterController
 
     void OnEnable()
     {
+        inputActions = new PlayerInputActions();
         inputActions.Enable();
+        inputActions.Player.Inventory.performed += ctx => onInventoryToggle?.Invoke();
         currentStamina = PlayerStats.stamina;
+
 
         UpdateStaminaUI();
         UpdateHealthUI();
@@ -250,9 +269,23 @@ public class PlayerController : BaseCharacterController
                     Destroy(fx, 0.5f);
                 }
             }
+
+            Resource resource = target.GetComponent<Resource>();
+            if (resource != null)
+            {
+                Vector3 hitPoint = target.ClosestPoint(transform.position);
+                Vector3 hitNormal = (target.transform.position - transform.position).normalized;
+                resource.Gather(hitPoint, hitNormal);
+            }
         }
 
 
+    }
+
+    public void AddItemToInventory(ItemData item)
+    {
+        this.itemData = item;
+        addItem?.Invoke(); 
     }
 
 

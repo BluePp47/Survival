@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1318710147430821150}
   - component: {fileID: 2081378495857746233}
   - component: {fileID: 1547708943342593913}
-  - component: {fileID: 9196038186246891490}
   - component: {fileID: 4152235069231698222}
+  - component: {fileID: 5218642250979742476}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6572315555086209609}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.8389219, z: -0, w: 0.54425186}
+  m_LocalRotation: {x: 0, y: 0.8389224, z: 0, w: 0.5442511}
   m_LocalPosition: {x: 3.66, y: 9.99, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
@@ -85,21 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9196038186246891490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6572315555086209609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 976dd7f945e0feb469fd09f73d94d51f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemToGive: {fileID: 0}
-  quantityPerHit: 1
-  capacity: 5
 --- !u!65 &4152235069231698222
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121,3 +106,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.55518186, y: 0.39270005, z: 0.45570803}
   m_Center: {x: 0.022409141, y: 0.19635002, z: 0.011060268}
+--- !u!114 &5218642250979742476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6572315555086209609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05610ff4f6a32754ebc7eceff7d71032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemToGive: {fileID: 11400000, guid: 0b026680de5255d40b163f1150066bf2, type: 2}
+  quantityPerHit: 1
+  capacity: 5

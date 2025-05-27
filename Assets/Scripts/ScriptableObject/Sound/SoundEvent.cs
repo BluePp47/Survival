@@ -5,4 +5,5 @@ public static class SoundEvents
 {
     public static Action OnUIClick;
     public static Action<AudioClip> OnPlaySFX;
+    public static Action<AudioClip[]> OnPlaySFX2;
 }
