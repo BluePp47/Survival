@@ -20,8 +20,3 @@ public class NPC : ScriptableObject
     public TextMeshProUGUI option2Text;
 }
 
-public enum RewardType
-{
-    Blueprint,
-    Resource
-}
