@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/3Dsurvibe.unity
+    path: Assets/Scenes/3Dsurvibe.unity
     guid: 5653c3a35115148a2bba1d37d49b73e5
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
