@@ -167,4 +167,10 @@ public class SoundManager : MonoBehaviour
         if (clip != null)
             sfxSource.PlayOneShot(clip);
     }
+
+    public void PlaySFX2(AudioClip[] clip)
+    {
+        if (clip != null)
+            sfxSource.PlayOneShot(clip[Random.Range(0,clip.Length)]);
+    }
 }

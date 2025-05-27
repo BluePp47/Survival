@@ -24,9 +24,10 @@ public class FootSteps : MonoBehaviour
                 if(Time.time - footStepTime > footstepRate)
                 {
                     footStepTime = Time.time;
-                    audioSource.PlayOneShot(footstepClips[Random.Range(0, footstepClips.Length)]);
+                    // SoundEvents.OnPlaySFX?.Invoke(footstepClips);
                 }
             }
         }
     }
+
 }
