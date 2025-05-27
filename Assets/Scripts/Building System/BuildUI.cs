@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public class BuildUI : MonoBehaviour
 
     //private void Start()
     //{
-    //    OnClickBuild(); µð¹ö±×¿ë
+    //    OnClickBuild(); //ë””ë²„ê·¸ìš©
     //}
     public void OnClickBuild()
     {
