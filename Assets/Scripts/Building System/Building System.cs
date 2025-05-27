@@ -22,6 +22,13 @@ public class BuildingSystem : MonoBehaviour
         if (IsBuildmode && currentItem != null)
         {
             ShowGhostPrefab();
+            if (Input.GetMouseButtonDown(1)) // 우클릭
+            {
+                if (ghostObject != null)
+                {
+                    ghostObject.transform.Rotate(0f, 45f, 0f); // Y축 기준 45도 회전
+                }
+            }
             if (Input.GetMouseButtonDown(0))
             {
                 // 마우스 위치로 ray를 쏴
@@ -52,6 +59,7 @@ public class BuildingSystem : MonoBehaviour
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
+      
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Vector3 targetPosition = hit.point;
@@ -88,6 +96,13 @@ public class BuildingSystem : MonoBehaviour
                 }
             }
             ghostObject.transform.position = targetPosition;
+            if (ghostObject != null)
+            {
+                foreach (var collider in ghostObject.GetComponentsInChildren<Collider>())
+                {
+                    collider.enabled = false;
+                }
+            }
         }
 
     }
