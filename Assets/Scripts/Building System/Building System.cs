@@ -8,16 +8,18 @@ public class BuildingSystem : MonoBehaviour
     // 설치에 사용할 카메라 
     public Camera mainCamera;
 
-    // 들고있는 건설 아이템 
+    private bool IsBuildmode = false;
+    private BuildItem currentItem = null; // 현재 선택된 건설 아이템
+    private GameObject ghostObject = null; // 마우스 위치에 표시될 고스트 프리팹
+                                           // 들고있는 건설 아이템 
     public BuildItem bluePrint;
+    public BuildItem bluePrint1;
+    public BuildItem bluePrint2;
 
-    // 마우스 고스트(프리뷰) 옵젝
-    private GameObject ghostObject;
 
     private void Update()
     {
-        // bluePrint를 들고있을때만 
-        if (bluePrint != null)
+        if (IsBuildmode && currentItem != null)
         {
             ShowGhostPrefab();
             if (Input.GetMouseButtonDown(0))
@@ -34,6 +36,8 @@ public class BuildingSystem : MonoBehaviour
             }
 
         }
+        // currentItem를 들고있을때만 
+
         else
         {// 없으면 부스고 
             if (ghostObject != null)
@@ -56,7 +60,7 @@ public class BuildingSystem : MonoBehaviour
             if (ghostObject == null)
             {
                 // BuildItem에서 프리팹을 가져와 인스턴스화
-                ghostObject = Instantiate(bluePrint.prefab);
+                ghostObject = Instantiate(currentItem.prefab);
 
                 // Ray 충돌 방지용으로 레이어 변경
                 SetLayerRecursively(ghostObject, LayerMask.NameToLayer("Ignore Raycast"));
@@ -85,12 +89,12 @@ public class BuildingSystem : MonoBehaviour
             }
             ghostObject.transform.position = targetPosition;
         }
-        
+
     }
     void PlacePrefab(Vector3 position)
     {
         // 프리팹 해당 위치 생성
-        Instantiate(bluePrint.prefab, position, Quaternion.identity);
+        Instantiate(currentItem.prefab, position, Quaternion.identity);
     }
 
     // 레이어를 바꿔서 ray cast에 맞지 않게해 고스트와 충돌이 안 나게 끔 해주는 것 
@@ -107,4 +111,17 @@ public class BuildingSystem : MonoBehaviour
             SetLayerRecursively(child.gameObject, newLayer);
         }
     }
+    public void SetBuildItem(BuildItem item)
+    {
+        currentItem = item;
+        IsBuildmode = true;
+
+        // 이전 고스트 제거
+        if (ghostObject != null)
+        {
+            Destroy(ghostObject);
+            ghostObject = null;
+        }
+    }
+
 }
