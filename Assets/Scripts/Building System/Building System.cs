@@ -1,17 +1,17 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class BuildingSystem : MonoBehaviour
 {
-    // ¼³Ä¡¿¡ »ç¿ëÇÒ Ä«¸Ş¶ó 
+    // ì„¤ì¹˜ì— ì‚¬ìš©í•  ì¹´ë©”ë¼ 
     public Camera mainCamera;
 
     private bool IsBuildmode = false;
-    private BuildItem currentItem = null; // ÇöÀç ¼±ÅÃµÈ °Ç¼³ ¾ÆÀÌÅÛ
-    private GameObject ghostObject = null; // ¸¶¿ì½º À§Ä¡¿¡ Ç¥½ÃµÉ °í½ºÆ® ÇÁ¸®ÆÕ
-                                           // µé°íÀÖ´Â °Ç¼³ ¾ÆÀÌÅÛ 
+    private BuildItem currentItem = null; // í˜„ì¬ ì„ íƒëœ ê±´ì„¤ ì•„ì´í…œ
+    private GameObject ghostObject = null; // ë§ˆìš°ìŠ¤ ìœ„ì¹˜ì— í‘œì‹œë  ê³ ìŠ¤íŠ¸ í”„ë¦¬íŒ¹
+                                           // ë“¤ê³ ìˆëŠ” ê±´ì„¤ ì•„ì´í…œ 
     public BuildItem bluePrint;
     public BuildItem bluePrint1;
     public BuildItem bluePrint2;
@@ -22,24 +22,31 @@ public class BuildingSystem : MonoBehaviour
         if (IsBuildmode && currentItem != null)
         {
             ShowGhostPrefab();
+            if (Input.GetMouseButtonDown(1)) // ìš°í´ë¦­
+            {
+                if (ghostObject != null)
+                {
+                    ghostObject.transform.Rotate(0f, 45f, 0f); // Yì¶• ê¸°ì¤€ 45ë„ íšŒì „
+                }
+            }
             if (Input.GetMouseButtonDown(0))
             {
-                // ¸¶¿ì½º À§Ä¡·Î ray¸¦ ½÷
+                // ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¡œ rayë¥¼ ì´
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                // Ray°¡ Collider¿¡ ´ê¾Ò´ÂÁö È®ÀÎ
+                // Rayê°€ Colliderì— ë‹¿ì•˜ëŠ”ì§€ í™•ì¸
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
                     Vector3 buildPosition = hit.point;
-                    // ¼³Ä¡ 
+                    // ì„¤ì¹˜ 
                     PlacePrefab(buildPosition);
                 }
             }
 
         }
-        // currentItem¸¦ µé°íÀÖÀ»¶§¸¸ 
+        // currentItemë¥¼ ë“¤ê³ ìˆì„ë•Œë§Œ 
 
         else
-        {// ¾øÀ¸¸é ºÎ½º°í 
+        {// ì—†ìœ¼ë©´ ë¶€ìŠ¤ê³  
             if (ghostObject != null)
             {
                 Destroy(ghostObject);
@@ -52,29 +59,30 @@ public class BuildingSystem : MonoBehaviour
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
+      
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Vector3 targetPosition = hit.point;
 
-            // ¾ÆÁ÷ °í½ºÆ®°¡ ¾øÀ¸¸é »ı¼º
+            // ì•„ì§ ê³ ìŠ¤íŠ¸ê°€ ì—†ìœ¼ë©´ ìƒì„±
             if (ghostObject == null)
             {
-                // BuildItem¿¡¼­ ÇÁ¸®ÆÕÀ» °¡Á®¿Í ÀÎ½ºÅÏ½ºÈ­
+                // BuildItemì—ì„œ í”„ë¦¬íŒ¹ì„ ê°€ì ¸ì™€ ì¸ìŠ¤í„´ìŠ¤í™”
                 ghostObject = Instantiate(currentItem.prefab);
 
-                // Ray Ãæµ¹ ¹æÁö¿ëÀ¸·Î ·¹ÀÌ¾î º¯°æ
+                // Ray ì¶©ëŒ ë°©ì§€ìš©ìœ¼ë¡œ ë ˆì´ì–´ ë³€ê²½
                 SetLayerRecursively(ghostObject, LayerMask.NameToLayer("Ignore Raycast"));
 
-                // ¸ğµç RendererÀÇ ¸ÓÆ¼¸®¾óÀ» ¹İÅõ¸í Ã³¸®
+                // ëª¨ë“  Rendererì˜ ë¨¸í‹°ë¦¬ì–¼ì„ ë°˜íˆ¬ëª… ì²˜ë¦¬
                 foreach (var renderer in ghostObject.GetComponentsInChildren<Renderer>())
                 {
                     foreach (var mat in renderer.materials)
                     {
                         Color color = mat.color;
-                        color.a = 0.5f; // ¹İÅõ¸íµµ ¼³Á¤
+                        color.a = 0.5f; // ë°˜íˆ¬ëª…ë„ ì„¤ì •
                         mat.color = color;
 
-                        // ¸ÓÆ¼¸®¾ó ·»´õ¸µ ¸ğµå¸¦ Transparent·Î ¼³Á¤
+                        // ë¨¸í‹°ë¦¬ì–¼ ë Œë”ë§ ëª¨ë“œë¥¼ Transparentë¡œ ì„¤ì •
                         mat.SetFloat("_Mode", 2);
                         mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
                         mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
@@ -83,28 +91,35 @@ public class BuildingSystem : MonoBehaviour
                         mat.EnableKeyword("_ALPHABLEND_ON");
                         mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
                         mat.renderQueue = 3000;
-                        // material Àº standard shader ±â¹İÀÌ¾î¾ßÇÔ ! 
+                        // material ì€ standard shader ê¸°ë°˜ì´ì–´ì•¼í•¨ ! 
                     }
                 }
             }
             ghostObject.transform.position = targetPosition;
+            if (ghostObject != null)
+            {
+                foreach (var collider in ghostObject.GetComponentsInChildren<Collider>())
+                {
+                    collider.enabled = false;
+                }
+            }
         }
 
     }
     void PlacePrefab(Vector3 position)
     {
-        // ÇÁ¸®ÆÕ ÇØ´ç À§Ä¡ »ı¼º
+        // í”„ë¦¬íŒ¹ í•´ë‹¹ ìœ„ì¹˜ ìƒì„±
         Instantiate(currentItem.prefab, position, Quaternion.identity);
     }
 
-    // ·¹ÀÌ¾î¸¦ ¹Ù²ã¼­ ray cast¿¡ ¸ÂÁö ¾Ê°ÔÇØ °í½ºÆ®¿Í Ãæµ¹ÀÌ ¾È ³ª°Ô ²û ÇØÁÖ´Â °Í 
+    // ë ˆì´ì–´ë¥¼ ë°”ê¿”ì„œ ray castì— ë§ì§€ ì•Šê²Œí•´ ê³ ìŠ¤íŠ¸ì™€ ì¶©ëŒì´ ì•ˆ ë‚˜ê²Œ ë” í•´ì£¼ëŠ” ê²ƒ 
     void SetLayerRecursively(GameObject obj, int newLayer)
     {
         if (obj == null) return;
 
         obj.layer = newLayer;
 
-        // ¸ğµç ÀÚ½Ä¿¡°Ôµµ µ¿ÀÏÇÑ ·¹ÀÌ¾î ¼³Á¤
+        // ëª¨ë“  ìì‹ì—ê²Œë„ ë™ì¼í•œ ë ˆì´ì–´ ì„¤ì •
         foreach (Transform child in obj.transform)
         {
             if (child == null) continue;
@@ -116,7 +131,7 @@ public class BuildingSystem : MonoBehaviour
         currentItem = item;
         IsBuildmode = true;
 
-        // ÀÌÀü °í½ºÆ® Á¦°Å
+        // ì´ì „ ê³ ìŠ¤íŠ¸ ì œê±°
         if (ghostObject != null)
         {
             Destroy(ghostObject);
