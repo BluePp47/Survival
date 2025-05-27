@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.547629, g: 0.8546218, b: 0.9222541, a: 1}
+  m_IndirectSpecularColor: {r: 0.5476275, g: 0.85462385, b: 0.9222565, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1637,7 +1637,7 @@ RectTransform:
   m_Father: {fileID: 994875239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1690,7 +1690,7 @@ GameObject:
   - component: {fileID: 516454567}
   - component: {fileID: 516454568}
   m_Layer: 0
-  m_Name: Stamina slider
+  m_Name: Stamina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5448,7 +5448,7 @@ RectTransform:
   m_Father: {fileID: 1518547580}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6132,7 +6132,7 @@ RectTransform:
   m_Father: {fileID: 2101566947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6747,6 +6747,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd576d43b31144529033ebd958e190d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curValue: 0
+  startValue: 100
+  maxValue: 0
+  passiveValue: 0
+  uiBar: {fileID: 0}
 --- !u!224 &821390284343907614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7049,6 +7054,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd576d43b31144529033ebd958e190d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curValue: 0
+  startValue: 100
+  maxValue: 0
+  passiveValue: 0
+  uiBar: {fileID: 0}
 --- !u!1 &1230761728267738068
 GameObject:
   m_ObjectHideFlags: 0
@@ -7524,6 +7534,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd576d43b31144529033ebd958e190d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curValue: 0
+  startValue: 100
+  maxValue: 0
+  passiveValue: 0
+  uiBar: {fileID: 0}
 --- !u!1 &1687962624048160480
 GameObject:
   m_ObjectHideFlags: 0
@@ -8639,7 +8654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &3539243001309129704
 GameObject:
   m_ObjectHideFlags: 0
@@ -10027,7 +10042,7 @@ GameObject:
   - component: {fileID: 5548489419810146659}
   - component: {fileID: 1227813179780252380}
   m_Layer: 0
-  m_Name: Thirst
+  m_Name: Thirsty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10129,6 +10144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dd576d43b31144529033ebd958e190d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curValue: 0
+  startValue: 100
+  maxValue: 0
+  passiveValue: 0
+  uiBar: {fileID: 0}
 --- !u!224 &6329720024672988086
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11477,7 +11497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &8068960570270327887
 GameObject:
   m_ObjectHideFlags: 0
