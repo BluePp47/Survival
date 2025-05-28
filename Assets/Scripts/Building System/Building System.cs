@@ -1,10 +1,11 @@
 ﻿using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
 public class BuildingSystem : MonoBehaviour
 {
+    public GameObject BuildingUI;
     // 설치에 사용할 카메라 
     public Camera mainCamera;
 
@@ -22,6 +23,12 @@ public class BuildingSystem : MonoBehaviour
         if (IsBuildmode && currentItem != null)
         {
             ShowGhostPrefab();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                BuildingUI.SetActive(true);
+                IsBuildmode = false;
+                currentItem = null;
+            }
             if (Input.GetMouseButtonDown(1)) // 우클릭
             {
                 if (ghostObject != null)
@@ -94,6 +101,7 @@ public class BuildingSystem : MonoBehaviour
                         // material 은 standard shader 기반이어야함 ! 
                     }
                 }
+              
             }
             ghostObject.transform.position = targetPosition;
             if (ghostObject != null)
@@ -108,8 +116,16 @@ public class BuildingSystem : MonoBehaviour
     }
     void PlacePrefab(Vector3 position)
     {
-        // 프리팹 해당 위치 생성
-        Instantiate(currentItem.prefab, position, Quaternion.identity);
+        if (ghostObject != null)
+        {
+            // 고스트 오브젝트의 현재 회전을 그대로 가져와서 설치
+            Instantiate(currentItem.prefab, position, ghostObject.transform.rotation);
+        }
+        else
+        {
+            // 혹시 고스트가 없으면 기본 회전으로 설치
+            Instantiate(currentItem.prefab, position, Quaternion.identity);
+        }
     }
 
     // 레이어를 바꿔서 ray cast에 맞지 않게해 고스트와 충돌이 안 나게 끔 해주는 것 
