@@ -35,6 +35,8 @@ public class Inventory : MonoBehaviour
         }
 
         items.Add(new InventoryItem(item));
+
+        Debug.Log("AddItem 호출됨: " + CharacterManager.Instance.Player.itemData?.name);
     }
 
     public void UseItem(ItemData item)

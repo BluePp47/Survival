@@ -27,6 +27,7 @@ public class Resource : MonoBehaviour
             if (pickup != null)
             {
                 pickup.item = itemToGive;
+                Debug.Log("드롭 아이템에 아이템 데이터 설정 완료: " + itemToGive.name);
             }
             else
             {

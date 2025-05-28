@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
+
+    private Inventory inventory;
+
     public ItemSlot[] slots;
 
     public GameObject inventoryWindow;
@@ -31,9 +34,25 @@ public class UIInventory : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(InitUI());
+    }
+    IEnumerator InitUI()
+    {
+        yield return new WaitUntil(() => CharacterManager.Instance.Player != null);
+
+        Debug.Log("🎯 InitUI 시작됨");
+
         controller = CharacterManager.Instance.Player;
-        condition = CharacterManager.Instance.Player.condition;
-        dropPosition = CharacterManager.Instance.Player.dropPosition;
+
+        if (controller.condition == null)
+        {
+            Debug.LogError("❌ controller.condition이 null입니다. 인스펙터에서 연결 필요.");
+            yield break;
+        }
+
+        inventory = controller.GetInventory(); // ✅ 이 시점에 controller는 null 아님
+        condition = controller.condition;
+        dropPosition = controller.dropPosition;
 
         controller.onInventoryToggle += Toggle;
         controller.addItem += AddItem;
@@ -51,6 +70,7 @@ public class UIInventory : MonoBehaviour
         ClearSelectedItemWindow();
     }
 
+
     void ClearSelectedItemWindow()
     {
         selectedItemName.text = string.Empty;
@@ -66,6 +86,8 @@ public class UIInventory : MonoBehaviour
 
     public void Toggle()
     {
+        Debug.Log("ToggleInventory 호출됨");
+
         if (IsOpen())
         {
             inventoryWindow.SetActive(false);
@@ -84,6 +106,9 @@ public class UIInventory : MonoBehaviour
     void AddItem()
     {
         ItemData data = CharacterManager.Instance.Player.itemData;
+
+        Debug.Log("✅ UIInventory.AddItem() 호출됨");
+
 
         // 아이템이 중복가능한지 canStack
         if (data.canStack)
