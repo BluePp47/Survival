@@ -5489,7 +5489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977727816}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.03875457, y: 0.90610105, z: -0.08510881, w: -0.41259608}
+  m_LocalRotation: {x: -0.038754568, y: 0.90610105, z: -0.08510879, w: -0.4125961}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7435,6 +7435,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingSystem: {fileID: 1371035476}
+  BuildingUI: {fileID: 0}
+  Inventory: {fileID: 0}
+  buildButton0: {fileID: 0}
+  buildButton1: {fileID: 0}
+  buildButton2: {fileID: 0}
+  exitButton: {fileID: 0}
 --- !u!114 &1371035476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7447,6 +7453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1c8c1c282215c4d91f79def83dd9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildingUI: {fileID: 0}
   mainCamera: {fileID: 691737479}
   bluePrint: {fileID: 11400000, guid: cccc74683e9752e4f9c1d721400c0011, type: 2}
   bluePrint1: {fileID: 11400000, guid: bf47000ad67e438468902227b7b47c5e, type: 2}
