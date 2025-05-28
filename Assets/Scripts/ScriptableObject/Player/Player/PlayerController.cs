@@ -19,6 +19,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     public UIInventory uiInventory;
 
+    [SerializeField] private AudioClip[] attackAudio;
+    [SerializeField] private AudioClip jumpAudio;
+
     [SerializeField] private GameObject dustParticlePrefab;
     [SerializeField] private Transform dustSpawnPoint; // 발 위치 또는 지면 기준
 
@@ -294,6 +297,8 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             justJumped = true;
 
             animator.SetBool("Jump", true);
+            SoundEvents.OnPlaySFX?.Invoke(jumpAudio);
+
 
             Debug.Log("점프! (스태미나 소모)");
         }
@@ -415,6 +420,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         }
 
         animator.SetTrigger("Attack");
+        Invoke(nameof(PlayDelayedAttackAudio), 0.45f);
         attackCooldownTimer = attackInterval;
         Debug.Log("공격 실행");
 
@@ -470,6 +476,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         Destroy(dust, 1f);
     }
 
-
+    void PlayDelayedAttackAudio()
+    {
+        SoundEvents.OnPlaySFX2?.Invoke(attackAudio);
+    }
 
 }
