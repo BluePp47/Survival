@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-
-[Serializable]
+[System.Serializable]
 public class InventoryItem
 {
     public ItemData data;
@@ -20,7 +17,7 @@ public class InventoryItem
 public class Inventory : MonoBehaviour
 {
     public List<InventoryItem> items = new List<InventoryItem>();
-    public Player player;
+    public PlayerController player;
 
     public void AddItem(ItemData item)
     {
@@ -35,6 +32,9 @@ public class Inventory : MonoBehaviour
         }
 
         items.Add(new InventoryItem(item));
+
+        player.itemData = item;
+        player.addItem?.Invoke();
     }
 
     public void UseItem(ItemData item)
@@ -49,23 +49,20 @@ public class Inventory : MonoBehaviour
                 switch (effect.type)
                 {
                     case ConsumableType.Health:
-                        player.RestoreHealth(effect.value);
+                        player.condition.Add(effect.value);
                         break;
                     case ConsumableType.Hunger:
-                        player.RestoreHunger(effect.value);
+                        player.condition.Add(effect.value);
                         break;
                     case ConsumableType.Thirsty:
-                        player.RestoreThirst(effect.value);
+                        player.condition.Add(effect.value);
                         break;
                 }
             }
         }
 
         invItem.quantity--;
-
         if (invItem.quantity <= 0)
-        {
             items.Remove(invItem);
-        }
     }
 }
