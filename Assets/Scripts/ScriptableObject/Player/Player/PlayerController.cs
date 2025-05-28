@@ -39,6 +39,18 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     public DamageFlashUI damageFlashUI;
     public float invincibleTime = 1.5f;
 
+    [Header("배고픔 관련")]
+    public Image hungerFillImage; 
+    public float maxHunger = 100f;
+    public float currentHunger = 100f;
+    public float hungerDecreaseRate = 2f; 
+    
+    [Header("목마름 관련")]
+    public Slider thirstSlider; 
+    public float maxThirst = 100f;  
+    public float currentThirst = 100f; 
+    public float thirstDecreaseRate = 1.0f;
+    
     [Header("스태미나 관련")]
     public Slider staminaSlider;
 
@@ -121,10 +133,13 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         inputActions.Enable();
         inputActions.Player.Inventory.performed += ctx => onInventoryToggle?.Invoke();
         currentStamina = PlayerStats.stamina;
-
+        currentHunger = maxHunger;
+        currentThirst = maxThirst;
 
         UpdateStaminaUI();
         UpdateHealthUI();
+        UpdateHungerUI();
+        UpdateThirstUI();
     }
 
     void OnDisable() => inputActions.Disable();
@@ -134,9 +149,17 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         base.Update();
         HandleMovement();
         RegenerateStamina();
+        
         UpdateStaminaUI();
+        
+        DecreaseHunger();
+        UpdateHungerUI();
+        
+        DecreaseThirst();
+        UpdateThirstUI();
+        
         attackCooldownTimer -= Time.deltaTime;
-
+        
     }
     void HandleMovement()
     {
@@ -212,7 +235,40 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     }
 
+    void DecreaseHunger() //배고픔
+    {
+        if (currentHunger > 0f)
+        {
+            currentHunger -= hungerDecreaseRate * Time.deltaTime;
+            currentHunger = Mathf.Max(currentHunger, 0f);
+        }
+    }
+    
+    void UpdateHungerUI()
+    {
+        if (hungerFillImage == null) return;
 
+        float percent = currentHunger / maxHunger;
+        hungerFillImage.fillAmount = percent;
+    }
+    
+    void DecreaseThirst() //목마름
+    {
+        if (currentThirst > 0f)
+        {
+            currentThirst -= thirstDecreaseRate * Time.deltaTime;
+            currentThirst = Mathf.Max(currentThirst, 0f);
+        }
+    }
+
+// 슬라이더 UI 업데이트
+    void UpdateThirstUI()
+    {
+        if (thirstSlider == null) return;
+
+        thirstSlider.maxValue = maxThirst;
+        thirstSlider.value = Mathf.Clamp(currentThirst, 0f, maxThirst);
+    }
 
     void RegenerateStamina()
     {
@@ -310,7 +366,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         staminaSlider.maxValue = PlayerStats.stamina;
         staminaSlider.value = Mathf.Clamp(currentStamina, 0f, PlayerStats.stamina);
     }
-
+    
 
     private IEnumerator InvincibilityCoroutine()
     {
