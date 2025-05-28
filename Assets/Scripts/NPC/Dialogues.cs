@@ -12,6 +12,10 @@ public class Dialogues : MonoBehaviour
 
     public int SelectCount()
     {
-
+        if(Selections == null)
+        {
+            return 0;
+        }
+        return Selections.Count;
     }
 }
