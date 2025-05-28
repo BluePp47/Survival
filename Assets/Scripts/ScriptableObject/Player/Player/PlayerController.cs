@@ -45,6 +45,12 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     public float currentHunger = 100f;
     public float hungerDecreaseRate = 2f; 
     
+    [Header("목마름 관련")]
+    public Slider thirstSlider; 
+    public float maxThirst = 100f;  
+    public float currentThirst = 100f; 
+    public float thirstDecreaseRate = 1.0f;
+    
     [Header("스태미나 관련")]
     public Slider staminaSlider;
 
@@ -128,10 +134,12 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         inputActions.Player.Inventory.performed += ctx => onInventoryToggle?.Invoke();
         currentStamina = PlayerStats.stamina;
         currentHunger = maxHunger;
+        currentThirst = maxThirst;
 
         UpdateStaminaUI();
         UpdateHealthUI();
         UpdateHungerUI();
+        UpdateThirstUI();
     }
 
     void OnDisable() => inputActions.Disable();
@@ -144,8 +152,11 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         
         UpdateStaminaUI();
         
-        DecreaseHunger();    // 매 프레임 배고픔 감소
-        UpdateHungerUI();    // UI 업데이트
+        DecreaseHunger();
+        UpdateHungerUI();
+        
+        DecreaseThirst();
+        UpdateThirstUI();
         
         attackCooldownTimer -= Time.deltaTime;
         
@@ -224,7 +235,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     }
 
-    void DecreaseHunger() //시간이 지나면서 배고픔 수치 줄임
+    void DecreaseHunger() //배고픔
     {
         if (currentHunger > 0f)
         {
@@ -239,6 +250,24 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
         float percent = currentHunger / maxHunger;
         hungerFillImage.fillAmount = percent;
+    }
+    
+    void DecreaseThirst() //목마름
+    {
+        if (currentThirst > 0f)
+        {
+            currentThirst -= thirstDecreaseRate * Time.deltaTime;
+            currentThirst = Mathf.Max(currentThirst, 0f);
+        }
+    }
+
+// 슬라이더 UI 업데이트
+    void UpdateThirstUI()
+    {
+        if (thirstSlider == null) return;
+
+        thirstSlider.maxValue = maxThirst;
+        thirstSlider.value = Mathf.Clamp(currentThirst, 0f, maxThirst);
     }
 
     void RegenerateStamina()
@@ -337,7 +366,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         staminaSlider.maxValue = PlayerStats.stamina;
         staminaSlider.value = Mathf.Clamp(currentStamina, 0f, PlayerStats.stamina);
     }
-
+    
 
     private IEnumerator InvincibilityCoroutine()
     {
