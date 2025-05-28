@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
+
+    private Inventory inventory;
+
     public ItemSlot[] slots;
 
     public GameObject inventoryWindow;
@@ -31,9 +34,22 @@ public class UIInventory : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(InitUI());
+    }
+    IEnumerator InitUI()
+    {
+        yield return new WaitUntil(() => CharacterManager.Instance.Player != null);
+
         controller = CharacterManager.Instance.Player;
-        condition = CharacterManager.Instance.Player.condition;
-        dropPosition = CharacterManager.Instance.Player.dropPosition;
+
+        if (controller.condition == null)
+        {
+            yield break;
+        }
+
+        inventory = controller.GetInventory(); // ✅ 이 시점에 controller는 null 아님
+        condition = controller.condition;
+        dropPosition = controller.dropPosition;
 
         controller.onInventoryToggle += Toggle;
         controller.addItem += AddItem;
@@ -50,6 +66,7 @@ public class UIInventory : MonoBehaviour
 
         ClearSelectedItemWindow();
     }
+
 
     void ClearSelectedItemWindow()
     {

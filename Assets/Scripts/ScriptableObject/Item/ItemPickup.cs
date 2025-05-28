@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
@@ -8,21 +6,13 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var inventoryHolder = other.GetComponentInParent<IInventoryHolder>();
+        var holder = other.GetComponentInParent<IInventoryHolder>();
+        if (holder == null) return;
 
-        if (inventoryHolder != null && item != null)
-        {
-            inventoryHolder.GetInventory().AddItem(item);
+        Inventory inv = holder.GetInventory();
+        if (inv == null || item == null) return;
 
-            // UI 갱신을 위해 이벤트 호출
-            Player player = other.GetComponent<Player>();
-            if (player != null)
-            {
-                player.itemData = item;  // AddItem()용 데이터 설정
-                player.onAddItem?.Invoke();  // UIInventory에서 등록한 이벤트 호출
-            }
-
-            Destroy(gameObject);
-        }
+        inv.AddItem(item);
+        Destroy(gameObject);
     }
 }

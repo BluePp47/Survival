@@ -8,17 +8,6 @@ using System;
 
 public class PlayerController : BaseCharacterController, IInventoryHolder
 {
-    public Inventory inventory;
-    public PlayerCondition condition;
-    public Transform dropPosition;
-
-    public ItemData itemData;
-
-    public Action onInventoryToggle;
-    public Action addItem;
-
-    public UIInventory uiInventory;
-
     [SerializeField] private AudioClip[] attackAudio;
     [SerializeField] private AudioClip jumpAudio;
 
@@ -30,6 +19,17 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     private float walkThresholdTime = 0.5f;
 
     [SerializeField] private float dustSpawnInterval = 0.5f;
+
+
+    public Inventory inventory;
+    public UIInventory uiInventory;
+    public PlayerCondition condition;
+    public Transform dropPosition;
+
+    public ItemData itemData;
+    public Action onInventoryToggle;
+    public Action addItem;
+
 
 
     public Inventory GetInventory()
@@ -174,8 +174,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
-            float smoothAngle = Mathf.LerpAngle(transform.eulerAngles.y, targetAngle, rotationSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
+            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f); // 즉시 회전
+
+           
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
@@ -216,9 +217,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         animator.SetBool("Sprint", isSprinting && !isBlocking);
 
 
-        bool isWalking = !isSprinting && moveAmount > 0.1f && isGrounded;
+        bool isMovingOnGround = moveAmount > 0.1f && isGrounded;
 
-        if (isWalking)
+        if (isMovingOnGround)
         {
             walkingTimer += Time.deltaTime;
             dustSpawnCooldown -= Time.deltaTime;
@@ -226,7 +227,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             if (walkingTimer >= walkThresholdTime && dustSpawnCooldown <= 0f)
             {
                 SpawnDustParticle();
-                dustSpawnCooldown = dustSpawnInterval; // 다음 생성까지 대기 시간 설정
+                dustSpawnCooldown = dustSpawnInterval;
             }
         }
         else
@@ -234,6 +235,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             walkingTimer = 0f;
             dustSpawnCooldown = 0f;
         }
+
 
 
     }
@@ -413,11 +415,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             return;
         }
 
-        if (!isGrounded || velocity.y > 0f) // 점프 상태 확인
-        {
-            Debug.Log(" 점프 중엔 공격 불가");
-            return;
-        }
+       
 
         animator.SetTrigger("Attack");
         Invoke(nameof(PlayDelayedAttackAudio), 0.45f);
