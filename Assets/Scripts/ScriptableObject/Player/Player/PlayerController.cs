@@ -19,6 +19,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     public UIInventory uiInventory;
 
+    [SerializeField] private AudioClip[] attackAudio;
+    [SerializeField] private AudioClip jumpAudio;
+
     [SerializeField] private GameObject dustParticlePrefab;
     [SerializeField] private Transform dustSpawnPoint; // 발 위치 또는 지면 기준
 
@@ -39,6 +42,18 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     public DamageFlashUI damageFlashUI;
     public float invincibleTime = 1.5f;
 
+    [Header("배고픔 관련")]
+    public Image hungerFillImage; 
+    public float maxHunger = 100f;
+    public float currentHunger = 100f;
+    public float hungerDecreaseRate = 2f; 
+    
+    [Header("목마름 관련")]
+    public Slider thirstSlider; 
+    public float maxThirst = 100f;  
+    public float currentThirst = 100f; 
+    public float thirstDecreaseRate = 1.0f;
+    
     [Header("스태미나 관련")]
     public Slider staminaSlider;
 
@@ -121,10 +136,13 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         inputActions.Enable();
         inputActions.Player.Inventory.performed += ctx => onInventoryToggle?.Invoke();
         currentStamina = PlayerStats.stamina;
-
+        currentHunger = maxHunger;
+        currentThirst = maxThirst;
 
         UpdateStaminaUI();
         UpdateHealthUI();
+        UpdateHungerUI();
+        UpdateThirstUI();
     }
 
     void OnDisable() => inputActions.Disable();
@@ -134,9 +152,17 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         base.Update();
         HandleMovement();
         RegenerateStamina();
+        
         UpdateStaminaUI();
+        
+        DecreaseHunger();
+        UpdateHungerUI();
+        
+        DecreaseThirst();
+        UpdateThirstUI();
+        
         attackCooldownTimer -= Time.deltaTime;
-
+        
     }
     void HandleMovement()
     {
@@ -148,8 +174,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
-            float smoothAngle = Mathf.LerpAngle(transform.eulerAngles.y, targetAngle, rotationSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
+            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f); // 즉시 회전
+
+           
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
@@ -190,9 +217,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         animator.SetBool("Sprint", isSprinting && !isBlocking);
 
 
-        bool isWalking = !isSprinting && moveAmount > 0.1f && isGrounded;
+        bool isMovingOnGround = moveAmount > 0.1f && isGrounded;
 
-        if (isWalking)
+        if (isMovingOnGround)
         {
             walkingTimer += Time.deltaTime;
             dustSpawnCooldown -= Time.deltaTime;
@@ -200,7 +227,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             if (walkingTimer >= walkThresholdTime && dustSpawnCooldown <= 0f)
             {
                 SpawnDustParticle();
-                dustSpawnCooldown = dustSpawnInterval; // 다음 생성까지 대기 시간 설정
+                dustSpawnCooldown = dustSpawnInterval;
             }
         }
         else
@@ -210,9 +237,43 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         }
 
 
+
     }
 
+    void DecreaseHunger() //배고픔
+    {
+        if (currentHunger > 0f)
+        {
+            currentHunger -= hungerDecreaseRate * Time.deltaTime;
+            currentHunger = Mathf.Max(currentHunger, 0f);
+        }
+    }
+    
+    void UpdateHungerUI()
+    {
+        if (hungerFillImage == null) return;
 
+        float percent = currentHunger / maxHunger;
+        hungerFillImage.fillAmount = percent;
+    }
+    
+    void DecreaseThirst() //목마름
+    {
+        if (currentThirst > 0f)
+        {
+            currentThirst -= thirstDecreaseRate * Time.deltaTime;
+            currentThirst = Mathf.Max(currentThirst, 0f);
+        }
+    }
+
+// 슬라이더 UI 업데이트
+    void UpdateThirstUI()
+    {
+        if (thirstSlider == null) return;
+
+        thirstSlider.maxValue = maxThirst;
+        thirstSlider.value = Mathf.Clamp(currentThirst, 0f, maxThirst);
+    }
 
     void RegenerateStamina()
     {
@@ -238,6 +299,8 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             justJumped = true;
 
             animator.SetBool("Jump", true);
+            SoundEvents.OnPlaySFX?.Invoke(jumpAudio);
+
 
             Debug.Log("점프! (스태미나 소모)");
         }
@@ -310,7 +373,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         staminaSlider.maxValue = PlayerStats.stamina;
         staminaSlider.value = Mathf.Clamp(currentStamina, 0f, PlayerStats.stamina);
     }
-
+    
 
     private IEnumerator InvincibilityCoroutine()
     {
@@ -352,13 +415,10 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             return;
         }
 
-        if (!isGrounded || velocity.y > 0f) // 점프 상태 확인
-        {
-            Debug.Log(" 점프 중엔 공격 불가");
-            return;
-        }
+       
 
         animator.SetTrigger("Attack");
+        Invoke(nameof(PlayDelayedAttackAudio), 0.45f);
         attackCooldownTimer = attackInterval;
         Debug.Log("공격 실행");
 
@@ -414,6 +474,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         Destroy(dust, 1f);
     }
 
-
+    void PlayDelayedAttackAudio()
+    {
+        SoundEvents.OnPlaySFX2?.Invoke(attackAudio);
+    }
 
 }
