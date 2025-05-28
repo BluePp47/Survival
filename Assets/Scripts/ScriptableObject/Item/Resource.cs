@@ -30,7 +30,7 @@ public class Resource : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("드롭 프리팹에 ItemPickup 컴포넌트가 없습니다!");
+                Debug.LogWarning("드롭 프리팹 없습니다");
             }
         }
 
