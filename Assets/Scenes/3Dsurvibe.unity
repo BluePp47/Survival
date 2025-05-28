@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.547629, g: 0.8546218, b: 0.9222541, a: 1}
+  m_IndirectSpecularColor: {r: 0.54763895, g: 0.8546239, b: 0.92225957, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1950,7 +1950,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303774169}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.1295654, y: 0.86446553, z: -0.28453815, w: -0.39363727}
+  m_LocalRotation: {x: -0.12956543, y: 0.8644655, z: -0.2845382, w: -0.39363727}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9933,6 +9933,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ba6b8021212db42ecb29b5333bc3a839, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2058641033}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ba6b8021212db42ecb29b5333bc3a839, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2058641034}
   m_SourcePrefab: {fileID: 100100000, guid: ba6b8021212db42ecb29b5333bc3a839, type: 3}
 --- !u!1 &1944833061
 GameObject:
@@ -10606,6 +10609,11 @@ MonoBehaviour:
   dropPosition: {fileID: 0}
   itemData: {fileID: 0}
   uiInventory: {fileID: 8765593665975349725}
+  attackAudio:
+  - {fileID: 8300000, guid: eccc0a2f68bc946f2bdbdaced17de26a, type: 3}
+  - {fileID: 8300000, guid: 2d819a9ade42c4f9c9bb15eabd9ec501, type: 3}
+  - {fileID: 8300000, guid: 32cccbc558cd34fc282a814e374ecbaa, type: 3}
+  jumpAudio: {fileID: 8300000, guid: 5f24272c7e2cc4958995e9b67c508f2a, type: 3}
   dustParticlePrefab: {fileID: 8095896375423457463, guid: c83a4d5da04b0411891adbb287645cfa, type: 3}
   dustSpawnPoint: {fileID: 1913878123}
   dustSpawnInterval: 0.5
@@ -10616,6 +10624,10 @@ MonoBehaviour:
   maxHunger: 100
   currentHunger: 100
   hungerDecreaseRate: 2
+  thirstSlider: {fileID: 174724144}
+  maxThirst: 100
+  currentThirst: 100
+  thirstDecreaseRate: 1
   staminaSlider: {fileID: 516454568}
   blockStaminaCost: 20
   blockDamageReduction: 0.5
@@ -10684,6 +10696,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2058641034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058641027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b9b6ad54cea440ea494d0bfc0c3005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepThreshold: 6
+  footstepClip:
+  - {fileID: 8300000, guid: b17ddee4e52f748ecb6c763da269ac97, type: 3}
+  - {fileID: 8300000, guid: ed5d019a03bf54d37ad5207e26afc4d0, type: 3}
+  - {fileID: 8300000, guid: 2e330dfacb7124636a3f78e57fcfbe58, type: 3}
 --- !u!1 &2062207610 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 222047986658693889, guid: 122072161569ae347ae660f894109619, type: 3}
@@ -10900,7 +10929,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
