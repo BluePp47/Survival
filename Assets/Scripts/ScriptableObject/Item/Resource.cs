@@ -21,7 +21,17 @@ public class Resource : MonoBehaviour
             Vector3 dropPos = hitPoint + Vector3.up * 0.5f + Random.insideUnitSphere * 0.3f;
             dropPos.y = hitPoint.y + 0.5f;
 
-            Instantiate(itemToGive.dropPrefab, dropPos, Quaternion.identity);
+            GameObject drop = Instantiate(itemToGive.dropPrefab, dropPos, Quaternion.identity);
+
+            ItemPickup pickup = drop.GetComponent<ItemPickup>();
+            if (pickup != null)
+            {
+                pickup.item = itemToGive;
+            }
+            else
+            {
+                Debug.LogWarning("드롭 프리팹에 ItemPickup 컴포넌트가 없습니다!");
+            }
         }
 
         if (capacity <= 0)

@@ -20,6 +20,7 @@ public class InventoryItem
 public class Inventory : MonoBehaviour
 {
     public List<InventoryItem> items = new List<InventoryItem>();
+    public Player player;
 
     public void AddItem(ItemData item)
     {
@@ -48,13 +49,13 @@ public class Inventory : MonoBehaviour
                 switch (effect.type)
                 {
                     case ConsumableType.Health:
-                        //
+                        player.RestoreHealth(effect.value);
                         break;
                     case ConsumableType.Hunger:
-                        //
+                        player.RestoreHunger(effect.value);
                         break;
                     case ConsumableType.Thirsty:
-                        //
+                        player.RestoreThirst(effect.value);
                         break;
                 }
             }

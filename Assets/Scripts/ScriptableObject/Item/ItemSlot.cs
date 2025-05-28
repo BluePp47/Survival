@@ -15,10 +15,7 @@ public class ItemSlot : MonoBehaviour
     [HideInInspector] public int quantity;
     [HideInInspector] public bool equipped;
 
-    void Start()
-    {
-        GetComponent<Button>().onClick.AddListener(OnClick);
-    }
+   
 
     public void Set()
     {
