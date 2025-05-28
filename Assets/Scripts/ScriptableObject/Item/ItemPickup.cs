@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
@@ -8,40 +6,13 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("충돌한 오브젝트: " + other.name);
+        var holder = other.GetComponentInParent<IInventoryHolder>();
+        if (holder == null) return;
 
-        Debug.Log("ItemPickup 충돌 대상: " + other.name);
+        Inventory inv = holder.GetInventory();
+        if (inv == null || item == null) return;
 
-        var inventoryHolder = other.GetComponentInParent<IInventoryHolder>();
-        if (inventoryHolder == null)
-        {
-            Debug.LogWarning($"[ItemPickup] IInventoryHolder를 찾을 수 없습니다. {other.name}의 부모 트리를 확인하세요.");
-            return;
-        }
-
-        if (item == null)
-        {
-            Debug.LogWarning("ItemPickup.item이 설정되지 않았습니다!");
-            return;
-        }
-
-        var inventory = inventoryHolder.GetInventory();
-        if (inventory == null)
-        {
-            Debug.LogWarning("Inventory가 null입니다.");
-            return;
-        }
-
-        inventory.AddItem(item);
-
-        Player player = other.GetComponent<Player>();
-        if (player != null)
-        {
-            player.itemData = item;
-            player.onAddItem?.Invoke();
-        }
-
+        inv.AddItem(item);
         Destroy(gameObject);
     }
-
 }

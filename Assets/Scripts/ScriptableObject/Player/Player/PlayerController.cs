@@ -8,17 +8,6 @@ using System;
 
 public class PlayerController : BaseCharacterController, IInventoryHolder
 {
-    public Inventory inventory;
-    public PlayerCondition condition;
-    public Transform dropPosition;
-
-    public ItemData itemData;
-
-    public Action onInventoryToggle;
-    public Action addItem;
-
-    public UIInventory uiInventory;
-
     [SerializeField] private AudioClip[] attackAudio;
     [SerializeField] private AudioClip jumpAudio;
 
@@ -30,6 +19,17 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     private float walkThresholdTime = 0.5f;
 
     [SerializeField] private float dustSpawnInterval = 0.5f;
+
+
+    public Inventory inventory;
+    public UIInventory uiInventory;
+    public PlayerCondition condition;
+    public Transform dropPosition;
+
+    public ItemData itemData;
+    public Action onInventoryToggle;
+    public Action addItem;
+
 
 
     public Inventory GetInventory()

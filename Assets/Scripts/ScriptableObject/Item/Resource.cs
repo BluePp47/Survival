@@ -27,11 +27,10 @@ public class Resource : MonoBehaviour
             if (pickup != null)
             {
                 pickup.item = itemToGive;
-                Debug.Log("드롭 아이템에 아이템 데이터 설정 완료: " + itemToGive.name);
             }
             else
             {
-                Debug.LogWarning("드롭 프리팹에 ItemPickup 컴포넌트가 없습니다!");
+                Debug.LogWarning("드롭 프리팹 없습니다");
             }
         }
 

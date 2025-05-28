@@ -1,42 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
+    public ItemData item;
+
+    public UIInventory inventory;
+    public Button button;
     public Image icon;
-    public TextMeshProUGUI quantityText;
+    public TextMeshProUGUI quatityText;
+    private Outline outline;
 
-    [HideInInspector] public int index;
-    [HideInInspector] public UIInventory inventory;
-    [HideInInspector] public ItemData item;
-    [HideInInspector] public int quantity;
-    [HideInInspector] public bool equipped;
+    public int index;
+    public bool equipped;
+    public int quantity;
 
-   
+    private void Awake()
+    {
+        outline = GetComponent<Outline>();
+    }
+
+    //private void OnEnable()
+    //{
+    //    outline.enabled = equipped;
+    //}
 
     public void Set()
     {
+        icon.gameObject.SetActive(true);
         icon.sprite = item.icon;
-        icon.enabled = true;
+        quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
 
-        quantityText.text = item.canStack ? quantity.ToString() : "";
+        if (outline != null)
+        {
+            outline.enabled = equipped;
+        }
     }
 
     public void Clear()
     {
         item = null;
-        quantity = 0;
-        equipped = false;
-
-        icon.sprite = null;
-        icon.enabled = false;
-        quantityText.text = "";
+        icon.gameObject.SetActive(false);
+        quatityText.text = string.Empty;
     }
 
-    void OnClick()
+    public void OnClickButton()
     {
         inventory.SelectItem(index);
     }
