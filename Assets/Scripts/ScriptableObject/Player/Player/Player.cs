@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour, IInventoryHolder
 {
     public Inventory inventory;
     public PlayerStats baseStats;
+    public Action onAddItem;
+    public ItemData itemData;
+
 
     public float currentHealth;
     public float currentStamina;

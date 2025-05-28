@@ -8,10 +8,20 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        IInventoryHolder inventoryHolder = other.GetComponent<IInventoryHolder>();
-        if (inventoryHolder != null)
+        var inventoryHolder = other.GetComponentInParent<IInventoryHolder>();
+
+        if (inventoryHolder != null && item != null)
         {
             inventoryHolder.GetInventory().AddItem(item);
+
+            // UI 갱신을 위해 이벤트 호출
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                player.itemData = item;  // AddItem()용 데이터 설정
+                player.onAddItem?.Invoke();  // UIInventory에서 등록한 이벤트 호출
+            }
+
             Destroy(gameObject);
         }
     }
