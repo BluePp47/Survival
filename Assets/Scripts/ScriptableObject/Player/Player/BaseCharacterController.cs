@@ -13,6 +13,10 @@ public abstract class BaseCharacterController : MonoBehaviour
     protected bool isDead = false;
 
 
+    protected Animator animator;
+
+
+
 
     protected virtual void Awake()
     {
@@ -32,6 +36,9 @@ public abstract class BaseCharacterController : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
+            if (animator != null)
+                animator.SetBool("Jump", false);
+
             if (this is PlayerController pc && pc.justJumped)
             {
                 pc.justJumped = false;
