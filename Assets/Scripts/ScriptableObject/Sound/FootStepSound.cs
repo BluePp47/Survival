@@ -3,7 +3,6 @@ using UnityEngine;
 public class FootSteps : MonoBehaviour
 {
     public AudioClip[] footstepClips;
-    private AudioSource audioSource;
     private Rigidbody _rigidbody;
     public float footstepThreshold;
     public float footstepRate;
@@ -12,7 +11,6 @@ public class FootSteps : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -24,7 +22,7 @@ public class FootSteps : MonoBehaviour
                 if(Time.time - footStepTime > footstepRate)
                 {
                     footStepTime = Time.time;
-                    // SoundEvents.OnPlaySFX?.Invoke(footstepClips);
+                    SoundEvents.OnPlaySFX2?.Invoke(footstepClips);
                 }
             }
         }

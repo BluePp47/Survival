@@ -1,10 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Condition : MonoBehaviour
+public class PlayerCondition : MonoBehaviour
 {
     public float curValue;
     public float startValue = 100f;

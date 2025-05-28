@@ -12,11 +12,13 @@ public class Item : MonoBehaviour
 {
     public Resource resourceComponent;
     public Equipment equipmentComponent;
+    public Consumption consumptionComponent;
 
     void Awake()
     {
         resourceComponent = GetComponent<Resource>();
         equipmentComponent = GetComponent<Equipment>();
+        consumptionComponent = GetComponent<Consumption>();
     }
 
     public bool IsResource()
@@ -27,5 +29,10 @@ public class Item : MonoBehaviour
     public bool IsEquipable()
     {
         return equipmentComponent != null;
+    }
+
+    public bool IsConsumable()
+    {
+        return consumptionComponent != null;
     }
 }
