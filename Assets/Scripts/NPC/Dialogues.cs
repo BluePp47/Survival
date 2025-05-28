@@ -1,18 +1,17 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Dialogues : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string dialogue;
 
-    // Update is called once per frame
-    void Update()
+    public List<string> Selections;
+    public List<UnityEvent>events;
+
+    public int SelectCount()
     {
-        
+
     }
 }
