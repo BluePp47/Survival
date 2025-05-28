@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5476391, g: 0.85462385, b: 0.92225957, a: 1}
+  m_IndirectSpecularColor: {r: 0.547629, g: 0.8546218, b: 0.9222541, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3651,7 +3651,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665574377}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.050634235, y: 0.90327054, z: -0.11119769, w: -0.4113072}
+  m_LocalRotation: {x: -0.050634228, y: 0.90327054, z: -0.11119767, w: -0.4113072}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3771,7 +3771,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691737477}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.05063423, y: 0.90327054, z: -0.111197695, w: -0.41130716}
+  m_LocalRotation: {x: -0.050634217, y: 0.90327054, z: -0.11119766, w: -0.41130716}
   m_LocalPosition: {x: -3.945632, y: -18.19, z: -2.410102}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5489,7 +5489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977727816}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.03875457, y: 0.90610105, z: -0.085108794, w: -0.41259614}
+  m_LocalRotation: {x: -0.03875457, y: 0.90610105, z: -0.08510881, w: -0.41259608}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10710,11 +10710,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 4ec97ee0792604b8c99d178a9f301c59, type: 2}
-  inventory: {fileID: 0}
-  condition: {fileID: 0}
-  dropPosition: {fileID: 0}
-  itemData: {fileID: 0}
-  uiInventory: {fileID: 8765593665975349725}
   attackAudio:
   - {fileID: 8300000, guid: eccc0a2f68bc946f2bdbdaced17de26a, type: 3}
   - {fileID: 8300000, guid: 2d819a9ade42c4f9c9bb15eabd9ec501, type: 3}
@@ -10723,6 +10718,11 @@ MonoBehaviour:
   dustParticlePrefab: {fileID: 8095896375423457463, guid: c83a4d5da04b0411891adbb287645cfa, type: 3}
   dustSpawnPoint: {fileID: 1913878123}
   dustSpawnInterval: 0.5
+  inventory: {fileID: 0}
+  uiInventory: {fileID: 8765593665975349725}
+  condition: {fileID: 0}
+  dropPosition: {fileID: 0}
+  itemData: {fileID: 0}
   healthSlider: {fileID: 1846557458}
   damageFlashUI: {fileID: 90047120}
   invincibleTime: 1.5
