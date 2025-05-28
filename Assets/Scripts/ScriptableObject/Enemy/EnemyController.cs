@@ -3,7 +3,8 @@ using System.Collections;
 
 public class EnemyController : BaseCharacterController
 {
-    public Transform player;
+    private Transform player;
+
     public float wanderRadius = 5f;
     public float wanderInterval = 3f;
 
@@ -15,6 +16,9 @@ public class EnemyController : BaseCharacterController
 
     private float attackCooldown = 0f;
 
+    private Coroutine respawnCoroutine;
+
+
 
     private enum EnemyState { Wander, Chase, Attack, Return }
     private EnemyState currentState = EnemyState.Wander;
@@ -24,9 +28,24 @@ public class EnemyController : BaseCharacterController
     protected override void Awake()
     {
         base.Awake();
+        animator = GetComponent<Animator>();
         spawnPoint = transform.position;
         SetNewWanderTarget();
+
+        // ✅ 자동으로 플레이어 감지
+        GameObject foundPlayer = GameObject.FindGameObjectWithTag("Player");
+        if (foundPlayer != null)
+        {
+            player = foundPlayer.transform;
+            Debug.Log("[Enemy] 플레이어 자동 감지 완료");
+        }
+        else
+        {
+            Debug.LogWarning("[Enemy] 'Player' 태그를 가진 오브젝트가 없습니다!");
+        }
     }
+
+
 
     protected override void Update()
     {
@@ -35,6 +54,7 @@ public class EnemyController : BaseCharacterController
         if (player == null) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
 
 
         switch (currentState)
@@ -96,6 +116,7 @@ public class EnemyController : BaseCharacterController
 
     void Wander()
     {
+
         wanderTimer -= Time.deltaTime;
         Vector3 direction = (wanderTarget - transform.position).normalized;
 
@@ -106,6 +127,8 @@ public class EnemyController : BaseCharacterController
         {
             SetNewWanderTarget();
         }
+        UpdateRunAnimation();
+
     }
 
     void ChasePlayer()
@@ -117,6 +140,8 @@ public class EnemyController : BaseCharacterController
 
         // 🔄 자연스럽게 회전
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 5f);
+        UpdateRunAnimation();
+
     }
 
     void ReturnToSpawn()
@@ -125,6 +150,8 @@ public class EnemyController : BaseCharacterController
 
         velocity.x = direction.x * EnemyStats.moveSpeed;
         velocity.z = direction.z * EnemyStats.moveSpeed;
+        UpdateRunAnimation();
+
     }
 
     void StopMovement()
@@ -148,6 +175,9 @@ public class EnemyController : BaseCharacterController
             return;
         }
 
+        animator.SetTrigger("Attack");
+
+
         PlayerController playerController = player.GetComponent<PlayerController>();
         if (playerController != null)
         {
@@ -165,16 +195,71 @@ public class EnemyController : BaseCharacterController
     {
         base.Die();
 
-        // 1. 오브젝트 비활성화
-        gameObject.SetActive(false);
+        StopMovement(); // 이동 정지
+        animator.SetTrigger("Death");
 
-        // 2. 드랍 아이템 처리
+        // 공격 및 AI 중단
+        currentState = default;
+        player = null;
+
+        // 아이템 드랍 → 애니메이션 끝나고 실행
         EnemyStats enemyStats = stats as EnemyStats;
         if (enemyStats != null && enemyStats.dropItem != null)
         {
-            TryDropItem(enemyStats.dropItem);
+            StartCoroutine(HandleDeathSequence(enemyStats.dropItem));
+        }
+        else
+        {
+            StartCoroutine(HandleDeathSequence(null));
         }
     }
+
+    private IEnumerator HandleDeathSequence(DropItemData dropData)
+    {
+        float deathAnimDuration = 1.2f;
+        yield return new WaitForSeconds(deathAnimDuration);
+
+        if (dropData != null)
+        {
+            TryDropItem(dropData);
+        }
+
+        // ✅ 부활 요청
+        EnemyRespawner respawner = FindObjectOfType<EnemyRespawner>();
+        if (respawner != null)
+        {
+            respawner.StartRespawn(spawnPoint);
+        }
+        else
+        {
+            Debug.LogWarning("⚠ EnemyRespawner가 씬에 없음!");
+        }
+
+        Destroy(gameObject); // 🔥 사망 후 삭제
+    }
+
+
+    private void RespawnEnemy()
+    {
+        Debug.Log("[Enemy] 부활 처리 시작");
+
+        transform.position = spawnPoint;
+        currentHealth = stats.maxHealth;
+        isDead = false;
+
+        // 상태 초기화
+        currentState = EnemyState.Wander;
+        SetNewWanderTarget();
+
+        // 애니메이션 초기화
+        animator.ResetTrigger("Death");
+        animator.Play("Idle"); // 또는 기본 상태명으로 변경
+
+        // 다시 AI 활성화
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+    }
+
+
 
     void TryDropItem(DropItemData dropData)
     {
@@ -188,6 +273,12 @@ public class EnemyController : BaseCharacterController
         {
             Debug.Log("아이템 드랍 실패 (확률 미충족)");
         }
+    }
+
+    void UpdateRunAnimation()
+    {
+        float moveAmount = new Vector3(velocity.x, 0f, velocity.z).magnitude / EnemyStats.moveSpeed;
+        animator.SetFloat("Run", moveAmount);
     }
 
 }
