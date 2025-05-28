@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5476391, g: 0.85462385, b: 0.92225957, a: 1}
+  m_IndirectSpecularColor: {r: 0.547629, g: 0.8546218, b: 0.9222541, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -896,6 +896,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 224837a2c24114ef5a28f552398a6f21, type: 2}
+    - target: {fileID: -2445487640097905152, guid: 13dfbd627f2994293903b3c76c4b6369, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.206
+      objectReference: {fileID: 0}
+    - target: {fileID: -2445487640097905152, guid: 13dfbd627f2994293903b3c76c4b6369, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: -935533772807217311, guid: 13dfbd627f2994293903b3c76c4b6369, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1561,8 +1569,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303774169}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.14457637, y: 0.8529091, z: -0.31750375, w: -0.38837495}
-  m_LocalPosition: {x: -0.7543044, y: 0, z: -0.65652514}
+  m_LocalRotation: {x: -0.1295654, y: 0.86446553, z: -0.28453815, w: -0.39363727}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3031,7 +3039,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665574377}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.14377876, y: 0.85355914, z: -0.31575206, w: -0.38867098}
+  m_LocalRotation: {x: -0.14377874, y: 0.85355914, z: -0.31575206, w: -0.38867098}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3151,7 +3159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691737477}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.14377874, y: 0.8535591, z: -0.31575203, w: -0.38867098}
+  m_LocalRotation: {x: -0.14377874, y: 0.8535592, z: -0.31575206, w: -0.388671}
   m_LocalPosition: {x: -4.699936, y: -14.190001, z: -3.066627}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4295,7 +4303,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977727816}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.13668522, y: 0.8591613, z: -0.300174, w: -0.39122194}
+  m_LocalRotation: {x: -0.13668524, y: 0.8591613, z: -0.300174, w: -0.39122197}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7243,7 +7251,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 3
-  m_FillAmount: 0.917
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -8941,6 +8949,10 @@ MonoBehaviour:
   healthSlider: {fileID: 1846557458}
   damageFlashUI: {fileID: 90047120}
   invincibleTime: 1.5
+  hungerFillImage: {fileID: 1768728834}
+  maxHunger: 100
+  currentHunger: 100
+  hungerDecreaseRate: 2
   staminaSlider: {fileID: 516454568}
   blockStaminaCost: 20
   blockDamageReduction: 0.5

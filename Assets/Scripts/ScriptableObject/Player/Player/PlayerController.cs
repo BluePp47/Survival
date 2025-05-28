@@ -39,6 +39,12 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     public DamageFlashUI damageFlashUI;
     public float invincibleTime = 1.5f;
 
+    [Header("배고픔 관련")]
+    public Image hungerFillImage; 
+    public float maxHunger = 100f;
+    public float currentHunger = 100f;
+    public float hungerDecreaseRate = 2f; 
+    
     [Header("스태미나 관련")]
     public Slider staminaSlider;
 
@@ -121,10 +127,11 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         inputActions.Enable();
         inputActions.Player.Inventory.performed += ctx => onInventoryToggle?.Invoke();
         currentStamina = PlayerStats.stamina;
-
+        currentHunger = maxHunger;
 
         UpdateStaminaUI();
         UpdateHealthUI();
+        UpdateHungerUI();
     }
 
     void OnDisable() => inputActions.Disable();
@@ -134,9 +141,14 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         base.Update();
         HandleMovement();
         RegenerateStamina();
+        
         UpdateStaminaUI();
+        
+        DecreaseHunger();    // 매 프레임 배고픔 감소
+        UpdateHungerUI();    // UI 업데이트
+        
         attackCooldownTimer -= Time.deltaTime;
-
+        
     }
     void HandleMovement()
     {
@@ -212,7 +224,22 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     }
 
+    void DecreaseHunger() //시간이 지나면서 배고픔 수치 줄임
+    {
+        if (currentHunger > 0f)
+        {
+            currentHunger -= hungerDecreaseRate * Time.deltaTime;
+            currentHunger = Mathf.Max(currentHunger, 0f);
+        }
+    }
+    
+    void UpdateHungerUI()
+    {
+        if (hungerFillImage == null) return;
 
+        float percent = currentHunger / maxHunger;
+        hungerFillImage.fillAmount = percent;
+    }
 
     void RegenerateStamina()
     {
