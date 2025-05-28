@@ -11,13 +11,8 @@ GameObject:
   - component: {fileID: 2908473855226036066}
   - component: {fileID: 4860816266495406464}
   - component: {fileID: 5564514903581179704}
-<<<<<<< HEAD
   - component: {fileID: 4835609224882574556}
   - component: {fileID: 1782227068139310787}
-=======
-  - component: {fileID: 8428867411874160494}
-  - component: {fileID: 4835609224882574556}
->>>>>>> 22004982856045d28e6b925938831d48acf7b099
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -90,24 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
-<<<<<<< HEAD
-=======
---- !u!114 &8428867411874160494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1297677330474030375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 976dd7f945e0feb469fd09f73d94d51f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemToGive: {fileID: 0}
-  quantityPerHit: 1
-  capacity: 5
->>>>>>> 22004982856045d28e6b925938831d48acf7b099
 --- !u!65 &4835609224882574556
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -129,7 +106,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.23074023, y: 1.7109718, z: 0.20113698}
   m_Center: {x: 0.0026761175, y: 0.8554859, z: 0.00031032562}
-<<<<<<< HEAD
 --- !u!114 &1782227068139310787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,5 +121,3 @@ MonoBehaviour:
   itemToGive: {fileID: 11400000, guid: 94f5dcd824ece3d4db148d2655279291, type: 2}
   quantityPerHit: 1
   capacity: 5
-=======
->>>>>>> 22004982856045d28e6b925938831d48acf7b099

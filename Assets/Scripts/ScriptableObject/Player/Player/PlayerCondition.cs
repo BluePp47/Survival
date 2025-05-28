@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:Assets/Scripts/ScriptableObject/Player/Player/PlayerCondition.cs
 ﻿using System.Collections;
-========
-using System.Collections;
->>>>>>>> 22004982856045d28e6b925938831d48acf7b099:Assets/Scripts/ScriptableObject/UI/Condition.cs
 using System.Collections.Generic;
 using Unity.Profiling;
 using UnityEngine;
