@@ -84,7 +84,6 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     void OnEnable()
     {
-        inputActions = new PlayerInputActions();
         inputActions.Enable();
         inputActions.Player.Inventory.performed += ctx => onInventoryToggle?.Invoke();
         currentStamina = PlayerStats.stamina;
