@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class DialogUI : MonoBehaviour
 {
     [SerializeField] private List<Dialogues> dialogueList;
-    [SerializeField] private List<Button> option;
+    [SerializeField] private List<Button> buttons;
 
     [SerializeField] private TMP_Text content;
     [SerializeField] private Button btnNext;
@@ -38,9 +38,9 @@ public class DialogUI : MonoBehaviour
 
         content.text = current.dialogue;
 
-        for (var i = 0; i < option.Count; i++)
+        for (var i = 0; i < buttons.Count; i++)
         {
-            Button choiceButton = option[i];
+            Button choiceButton = buttons[i];
 
             // 선택지 버튼이 눌렸을때 호출될 함수를 초기화
             choiceButton.onClick.RemoveAllListeners();
