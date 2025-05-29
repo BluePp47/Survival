@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/SceneCs.meta
 guid: 81c72fa81bbf64f778a1de788ba3ad8b
+========
+guid: 62cd065a3ca144897b134563348d2320
+>>>>>>>> Develop:Assets/Scripts/InBuilding.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
