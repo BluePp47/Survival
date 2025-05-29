@@ -1587,7 +1587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
-  - {fileID: 1773868683}
+  - {fileID: 4935369819475284257}
   - {fileID: 492091337}
   - {fileID: 1288422340}
   - {fileID: 1514269062}
@@ -6007,7 +6007,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665574377}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.050634228, y: 0.90327054, z: -0.11119767, w: -0.4113072}
+  m_LocalRotation: {x: -0.050634235, y: 0.90327054, z: -0.11119769, w: -0.4113072}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6479,7 +6479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691737477}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.050634217, y: 0.90327054, z: -0.11119766, w: -0.41130716}
+  m_LocalRotation: {x: -0.05063423, y: 0.90327054, z: -0.111197695, w: -0.41130716}
   m_LocalPosition: {x: -3.945632, y: -18.19, z: -2.410102}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8233,7 +8233,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1773868682}
+  - {fileID: 6613483134912381907}
   - {fileID: 492091336}
   - {fileID: 1288422339}
   - {fileID: 1514269061}
@@ -9097,7 +9097,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977727816}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.038754568, y: 0.90610105, z: -0.08510879, w: -0.4125961}
+  m_LocalRotation: {x: -0.03875457, y: 0.90610105, z: -0.085108794, w: -0.41259614}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9201,7 +9201,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 136230218}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: OnUnequipButton
         m_Mode: 1
@@ -9646,7 +9646,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 136230218}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: OnEquipButton
         m_Mode: 1
@@ -9747,7 +9747,7 @@ Transform:
   m_GameObject: {fileID: 1046667608}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7655416, z: -0, w: 0.64338636}
-  m_LocalPosition: {x: 19.002634, y: 1.3759995, z: 15.700153}
+  m_LocalPosition: {x: 0.45, y: 2.04, z: 2.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10332,7 +10332,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 136230218}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: OnUseButton
         m_Mode: 1
@@ -10957,7 +10957,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 136230218}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: OnDropButton
         m_Mode: 1
@@ -15100,7 +15100,7 @@ PrefabInstance:
     - target: {fileID: 4935369819873150888, guid: 320920d3f4ea28645877ba9179cda566, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 136230218}
     - target: {fileID: 5012654090217195414, guid: 320920d3f4ea28645877ba9179cda566, type: 3}
       propertyPath: m_Name
       value: ItemSlot
@@ -15190,22 +15190,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 320920d3f4ea28645877ba9179cda566, type: 3}
---- !u!224 &1773868682 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6613483136410342746, guid: 320920d3f4ea28645877ba9179cda566, type: 3}
-  m_PrefabInstance: {fileID: 1773868681}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1773868683 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4935369819873150888, guid: 320920d3f4ea28645877ba9179cda566, type: 3}
-  m_PrefabInstance: {fileID: 1773868681}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fbeb24d5bc13a34c976f4db59222353, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1781099941
 GameObject:
   m_ObjectHideFlags: 0
@@ -17855,8 +17839,8 @@ MonoBehaviour:
   condition: {fileID: 0}
   dropPosition: {fileID: 1046667609}
   itemData: {fileID: 0}
-  starterAxe: {fileID: 0}
-  starterShield: {fileID: 0}
+  starterAxe: {fileID: 11400000, guid: 8a23a1d411a61d245afaf1615dbedbf6, type: 2}
+  starterShield: {fileID: 11400000, guid: 7ff5cfe389721a2448760356a3ec5211, type: 2}
   healthSlider: {fileID: 1846557458}
   damageFlashUI: {fileID: 90047120}
   invincibleTime: 1.5
@@ -17880,7 +17864,7 @@ MonoBehaviour:
   attackRadius: 1
   attackLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 576
   hitEffectPrefab: {fileID: 8095896375423457463, guid: 98fc1377ecde54642b94573d4046bb24, type: 3}
   hitEffectSpawnPoint: {fileID: 0}
   attackInterval: 0.7
@@ -19735,6 +19719,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4935369819475284257 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4935369819873150888, guid: 320920d3f4ea28645877ba9179cda566, type: 3}
+  m_PrefabInstance: {fileID: 1773868681}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fbeb24d5bc13a34c976f4db59222353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &4946236133549362517
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20150,6 +20145,11 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!224 &6613483134912381907 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6613483136410342746, guid: 320920d3f4ea28645877ba9179cda566, type: 3}
+  m_PrefabInstance: {fileID: 1773868681}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6618112887644749237
 RectTransform:
   m_ObjectHideFlags: 0

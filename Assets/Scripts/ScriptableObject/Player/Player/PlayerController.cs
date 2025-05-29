@@ -91,13 +91,17 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     void Start()
     {
-        if (starterAxe != null && inventory != null)
+        if (starterAxe != null)
             inventory.AddItem(starterAxe);
 
-        if (starterShield != null && inventory != null)
+        if (starterShield != null)
             inventory.AddItem(starterShield);
 
-        EquipStarterItems();
+        TryEquipItem(starterAxe);
+        TryEquipItem(starterShield);
+
+        if (inventory.uiInventory != null)
+            inventory.uiInventory.RefreshUI(inventory.items);
     }
 
     protected override void Awake()
@@ -471,15 +475,19 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         var invItem = inventory.items.Find(i => i.data == item);
         if (invItem == null) return;
 
+        invItem.isEquipped = true;
+
         int index = inventory.items.IndexOf(invItem);
         if (index < 0 || inventory.uiInventory == null) return;
 
         var slot = inventory.uiInventory.slots[index];
-        if (slot.item == item)
-        {
-            slot.equipped = true;
-            inventory.uiInventory.RefreshUI(inventory.items);
-        }
+        slot.equipped = true;
+
+        var equipment = GetComponent<Equipment>();
+        if (equipment != null)
+            equipment.Equip(item);
+
+        inventory.uiInventory.RefreshUI(inventory.items);
     }
 
     private void OnDrawGizmosSelected()

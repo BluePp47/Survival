@@ -63,17 +63,15 @@ public class UIInventory : MonoBehaviour
 
     public void RefreshUI(List<InventoryItem> inventoryItems)
     {
-        Debug.Log($"[UI] 받은 아이템 수: {inventoryItems.Count}");
-
         for (int i = 0; i < slots.Length; i++)
         {
             if (i < inventoryItems.Count)
             {
                 InventoryItem invItem = inventoryItems[i];
-                Debug.Log($"[UI] 슬롯 {i} → {invItem.data.displayName} x{invItem.quantity}");
 
                 slots[i].item = invItem.data;
                 slots[i].quantity = invItem.quantity;
+                slots[i].equipped = invItem.isEquipped;
                 slots[i].index = i;
                 slots[i].Set();
             }
@@ -188,6 +186,11 @@ public class UIInventory : MonoBehaviour
         if (selectedItem == null || selectedItem.type != ItemType.Equipable) return;
 
         slots[selectedItemIndex].equipped = true;
+
+        var item = inventory.items.Find(i => i.data == selectedItem);
+        if (item != null)
+            item.isEquipped = true;
+
         UpdateUI();
         SelectItem(selectedItemIndex);
     }
@@ -197,6 +200,11 @@ public class UIInventory : MonoBehaviour
         if (selectedItem == null || selectedItem.type != ItemType.Equipable) return;
 
         slots[selectedItemIndex].equipped = false;
+
+        var item = inventory.items.Find(i => i.data == selectedItem);
+        if (item != null)
+            item.isEquipped = false;
+
         UpdateUI();
         SelectItem(selectedItemIndex);
     }
@@ -206,7 +214,9 @@ public class UIInventory : MonoBehaviour
         if (selectedItem != null)
         {
             ThrowItem(selectedItem);
+            inventory.RemoveItem(selectedItem); 
             RemoveSelectedItem();
+            RefreshUI(inventory.items); 
         }
     }
 

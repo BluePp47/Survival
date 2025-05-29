@@ -7,11 +7,13 @@ public class InventoryItem
 {
     public ItemData data;
     public int quantity;
+    public bool isEquipped;
 
     public InventoryItem(ItemData itemData, int amount = 1)
     {
         data = itemData;
         quantity = amount;
+        isEquipped = false;
     }
 }
 
