@@ -55,7 +55,6 @@ public class DialogUI : MonoBehaviour
             choiceButton.gameObject.SetActive(true);
 
             choiceButton.onClick.AddListener(current.events[i].Invoke);
-            choiceButton.onClick.AddListener(() => gameObject.SetActive(false));
 
             var choiceText = choiceButton.transform.GetComponentInChildren<TMP_Text>();
             choiceText.text = current.Selections[i];
