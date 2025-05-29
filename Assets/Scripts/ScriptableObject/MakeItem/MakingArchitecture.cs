@@ -1,47 +1,89 @@
 // using System.Collections;
 // using System.Collections.Generic;
+// using TMPro;
 // using UnityEngine;
 
+// [System.Serializable]
+// public class MakingArchitectureItem
+// {
+//     public BuildItem builditemData;
+//     public MakingArchitectureItem(BuildItem itemdata)
+//     {
+//         builditemData =itemdata;
+//     }
+// }
 // public class MakingArchitecture : MonoBehaviour
 // {
 //     public MakeItemSlot[] slots;
 //     public GameObject inventoryWindow;
 //     public GameObject ArchitectureWindow;
 //     public Transform slotPanel;
-//     public Transform dropPosition;
 
 //     [Header("Selected Item")]
-//     private ItemSlot selectedItem;
+//     private MakeItemSlot selectedItem;
 //     private int selectedItemIndex;
 //     public TextMeshProUGUI selectedItemName;
 //     public TextMeshProUGUI selectedItemDescription;
 //     public TextMeshProUGUI selectedItemStatName;
 //     public TextMeshProUGUI selectedItemStatValue;
-//     public GameObject useButton;
-//     public GameObject equipButton;
-//     public GameObject unEquipButton;
-//     public GameObject dropButton;
+//     public GameObject makeButton;
 
 //     private int curEquipIndex;
 
 //     private PlayerController controller;
 //     private PlayerCondition condition;
 
+//     //1. 아이템슬롯 프리팹스 안 아이콘에 Item들을 순서대로 넣음.
+
+
+    
+// public class InventoryItem
+// {
+//     public ItemData data;
+//     public int quantity;
+
+//     public InventoryItem(ItemData itemData, int amount = 1)
+//     {
+//         data = itemData;
+//         quantity = amount;
+//     }
+// }
+
+// public class Inventory : MonoBehaviour
+// {
+//     public List<InventoryItem> items = new List<InventoryItem>();
+//     public PlayerController player;
+
+
+//     // 2. Item의 이름과 설명을 보여줌 
+//     // 3. Item에 필요한 재료를 설정함
+//     // 4. 필요한 재료를 보여줌
+//     // 5. 만들기 버튼을 누르면
+//     // 6. 사운드 재생 후
+//     // 7. 알림창 뜨고
+//     // 8. 설계도에 추가 됨
+
+
+    
+
+
+
+
+
 //     void Start()
 //     {
 //         controller = CharacterManager.Instance.Player.controller;
 //         condition = CharacterManager.Instance.Player.condition;
-//         dropPosition = CharacterManager.Instance.Player.dropPosition;
 
 //         controller.inventory += Toggle;
 //         CharacterManager.Instance.Player.addItem += AddItem;
 
 //         inventoryWindow.SetActive(false);
-//         slots = new ItemSlot[slotPanel.childCount];
+//         slots = new MakeItemSlot[slotPanel.childCount];
 
 //         for(int i = 0; i < slots.Length; i++)
 //         {
-//             slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
+//             slots[i] = slotPanel.GetChild(i).GetComponent<MakeItemSlot>();
 //             slots[i].index = i;
 //             slots[i].inventory = this;
 //             slots[i].Clear();
@@ -59,10 +101,7 @@
 //         selectedItemStatName.text = string.Empty;
 //         selectedItemStatValue.text = string.Empty;
 
-//         useButton.SetActive(false);
-//         equipButton.SetActive(false);
-//         unEquipButton.SetActive(false);
-//         dropButton.SetActive(false);
+//         makeButton.SetActive(false);
 //     }
 
 //     public void Toggle()
@@ -154,11 +193,6 @@
 //         return null;
 //     }
 
-// 		// Player 스크립트 먼저 수정
-// 		public void ThrowItem(ItemData data)
-//     {
-//         Instantiate(data.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
-//     }
 
 
 // 		// ItemSlot 스크립트 먼저 수정
@@ -181,10 +215,7 @@
 //             selectedItemStatValue.text += selectedItem.item.consumables[i].value.ToString() + "\n";
 //         }
 
-//         useButton.SetActive(selectedItem.item.type == ItemType.Consumable);
-//         equipButton.SetActive(selectedItem.item.type == ItemType.Equipable && !slots[index].equipped);
-//         unEquipButton.SetActive(selectedItem.item.type == ItemType.Equipable && slots[index].equipped);
-//         dropButton.SetActive(true);
+//         makeButton.SetActive(selectedItem.item.type == ItemType.Consumable); 
 //     }
 
 //     public void OnUseButton()
@@ -205,11 +236,6 @@
 //         }
 //     }
 
-//     public void OnDropButton()
-//     {
-//         ThrowItem(selectedItem.item);
-//         RemoveSelctedItem();
-//     }
 
 //     void RemoveSelctedItem()
 //     {
