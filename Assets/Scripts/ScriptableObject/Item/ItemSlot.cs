@@ -28,15 +28,34 @@ public class ItemSlot : MonoBehaviour
 
     public void Set()
     {
+        Debug.Log($"[ItemSlot] Set() 호출됨 - item: {(item != null ? item.name : "null")}");
+
+        if (item == null)
+        {
+            Debug.LogWarning($"[ItemSlot] item == null → Set 중단. index: {index}");
+            return;
+        }
+
+        if (item.icon == null)
+        {
+            Debug.LogError($"[ItemSlot] item.icon == null → 아이콘 없음. item: {item.name}");
+            return;
+        }
+
+        if (icon == null)
+        {
+            Debug.LogError($"[ItemSlot] icon UI 연결 안됨");
+            return;
+        }
+
         icon.gameObject.SetActive(true);
         icon.sprite = item.icon;
+
         quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
 
-        if (outline != null)
-        {
-            outline.enabled = equipped;
-        }
+        Debug.Log($"[ItemSlot] Set() 완료: {item.name} x{quantity}");
     }
+
 
     public void Clear()
     {

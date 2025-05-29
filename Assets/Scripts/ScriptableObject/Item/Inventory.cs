@@ -18,15 +18,19 @@ public class Inventory : MonoBehaviour
 {
     public List<InventoryItem> items = new List<InventoryItem>();
     public PlayerController player;
+    public UIInventory uiInventory;
 
     public void AddItem(ItemData item)
     {
+        Debug.Log("아이템 추가됨: " + item.name);
+
         if (item.canStack)
         {
             InventoryItem slot = items.Find(i => i.data == item);
             if (slot != null && slot.quantity < item.maxStackAmount)
             {
                 slot.quantity++;
+                uiInventory.RefreshUI(items);
                 return;
             }
         }
@@ -35,6 +39,10 @@ public class Inventory : MonoBehaviour
 
         player.itemData = item;
         player.addItem?.Invoke();
+
+        Debug.Log("uiInventory is null? " + (uiInventory == null));
+
+        uiInventory.RefreshUI(items);
     }
 
     public void UseItem(ItemData item)

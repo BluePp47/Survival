@@ -22,7 +22,6 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
 
     public Inventory inventory;
-    public UIInventory uiInventory;
     public PlayerCondition condition;
     public Transform dropPosition;
 
@@ -133,6 +132,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     void OnEnable()
     {
+        Debug.Log("탭 키 눌림"); // 이 로그가 나오는지 먼저 확인
         inputActions.Enable();
         inputActions.Player.Inventory.performed += ctx => onInventoryToggle?.Invoke();
         currentStamina = PlayerStats.stamina;
