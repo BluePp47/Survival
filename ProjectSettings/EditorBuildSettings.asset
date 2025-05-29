@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/CharacterSelect.unity
+    guid: 78e271f53f6da464fa9ecae530073c1b
+  - enabled: 1
     path: Assets/Scenes/3Dsurvibe.unity
     guid: 5653c3a35115148a2bba1d37d49b73e5
   - enabled: 1
+    path: Assets/Scenes/InBuilding.unity
+    guid: fe5ebec88507e40d5996e663af25558b
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: c556612fb8e964ddcbf18b4459109937
   m_configObjects: {}
