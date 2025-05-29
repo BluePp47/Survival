@@ -22,8 +22,6 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(ItemData item)
     {
-        Debug.Log("아이템 추가됨: " + item.name);
-
         if (item.canStack)
         {
             InventoryItem slot = items.Find(i => i.data == item);
@@ -39,8 +37,6 @@ public class Inventory : MonoBehaviour
 
         player.itemData = item;
         player.addItem?.Invoke();
-
-        Debug.Log("uiInventory is null? " + (uiInventory == null));
 
         uiInventory.RefreshUI(items);
     }
@@ -80,17 +76,14 @@ public class Inventory : MonoBehaviour
         InventoryItem invItem = items.Find(i => i.data == item);
         if (invItem == null)
         {
-            Debug.LogWarning("[Inventory] 제거 대상 아이템 없음");
             return;
         }
 
         invItem.quantity -= count;
-        Debug.Log($"[Inventory] {item.displayName} 수량 감소됨 → 남은 수량: {invItem.quantity}");
 
         if (invItem.quantity <= 0)
         {
             items.Remove(invItem);
-            Debug.Log("[Inventory] 수량 0 → 아이템 제거");
         }
 
         uiInventory.RefreshUI(items);

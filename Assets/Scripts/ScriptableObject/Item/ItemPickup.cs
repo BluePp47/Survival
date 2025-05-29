@@ -14,8 +14,5 @@ public class ItemPickup : MonoBehaviour
 
         inv.AddItem(item);
         Destroy(gameObject);
-
-        Debug.Log("획득한 아이템: " + item.displayName);
-
     }
 }
