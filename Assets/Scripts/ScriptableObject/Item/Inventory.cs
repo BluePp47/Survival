@@ -18,7 +18,6 @@ public class Inventory : MonoBehaviour
 {
     public List<InventoryItem> items = new List<InventoryItem>();
     public PlayerController player;
-    public UIInventory uiInventory;
 
     public void AddItem(ItemData item)
     {
@@ -28,7 +27,6 @@ public class Inventory : MonoBehaviour
             if (slot != null && slot.quantity < item.maxStackAmount)
             {
                 slot.quantity++;
-                uiInventory.RefreshUI(items);
                 return;
             }
         }
@@ -37,8 +35,6 @@ public class Inventory : MonoBehaviour
 
         player.itemData = item;
         player.addItem?.Invoke();
-
-        uiInventory.RefreshUI(items);
     }
 
     public void UseItem(ItemData item)
@@ -69,24 +65,4 @@ public class Inventory : MonoBehaviour
         if (invItem.quantity <= 0)
             items.Remove(invItem);
     }
-
-
-    public void RemoveItem(ItemData item, int count = 1)
-    {
-        InventoryItem invItem = items.Find(i => i.data == item);
-        if (invItem == null)
-        {
-            return;
-        }
-
-        invItem.quantity -= count;
-
-        if (invItem.quantity <= 0)
-        {
-            items.Remove(invItem);
-        }
-
-        uiInventory.RefreshUI(items);
-    }
-
 }

@@ -4,63 +4,45 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
-    [Header("UI")]
+    public ItemData item;
+
+    public UIInventory inventory;
     public Button button;
     public Image icon;
-    public TextMeshProUGUI quantityText;
-    public TextMeshProUGUI equippedText;
-
-    [Header("Data")]
-    public UIInventory inventory;
-    public ItemData item;
-    public int index;
-    public int quantity;
-    public bool equipped;
-
+    public TextMeshProUGUI quatityText;
     private Outline outline;
+
+    public int index;
+    public bool equipped;
+    public int quantity;
 
     private void Awake()
     {
         outline = GetComponent<Outline>();
     }
 
+    //private void OnEnable()
+    //{
+    //    outline.enabled = equipped;
+    //}
+
     public void Set()
     {
-        if (item == null || item.icon == null || icon == null) return;
-
-        // 아이콘 표시
         icon.gameObject.SetActive(true);
         icon.sprite = item.icon;
+        quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
 
-        // 수량 표시 조건: 장비가 아닐 때만
-        if (quantityText != null)
+        if (outline != null)
         {
-            bool showQuantity = item.type != ItemType.Equipable;
-            quantityText.text = (showQuantity && quantity > 1) ? quantity.ToString() : string.Empty;
-        }
-
-        // 장비일 때만 E 표시
-        if (equippedText != null)
-        {
-            bool showE = (item.type == ItemType.Equipable && equipped);
-            equippedText.gameObject.SetActive(showE);
+            outline.enabled = equipped;
         }
     }
 
     public void Clear()
     {
         item = null;
-        quantity = 0;
-        equipped = false;
-
-        if (icon != null)
-            icon.gameObject.SetActive(false);
-
-        if (quantityText != null)
-            quantityText.text = string.Empty;
-
-        if (equippedText != null)
-            equippedText.gameObject.SetActive(false);
+        icon.gameObject.SetActive(false);
+        quatityText.text = string.Empty;
     }
 
     public void OnClickButton()
