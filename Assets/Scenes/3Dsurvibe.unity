@@ -2900,7 +2900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &387346860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2954,8 +2954,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\n<\uC870\uC791\uBC95>\n\nW S A D - \uC774\uB3D9\n\nSHIFT - \uC2AC\uB77C\uC774\uB4DC\n\nClick
-    - \uACF5\uACA9\n\n\n"
+  m_text: "\n<\uC870\uC791\uBC95>\n\nW S A D - \uC774\uB3D9\n\nSHIFT - \uB300\uC26C
+    \n\nClick - \uACF5\uACA9\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: edce1f64f91de48daa7a91ded0429c97, type: 2}
   m_sharedMaterial: {fileID: 4804673219077872049, guid: edce1f64f91de48daa7a91ded0429c97, type: 2}
@@ -8287,7 +8287,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 109}
-  m_SizeDelta: {x: 800, y: 551.77}
+  m_SizeDelta: {x: 800, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1155654353
 MonoBehaviour:
