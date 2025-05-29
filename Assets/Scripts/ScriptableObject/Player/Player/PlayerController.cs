@@ -20,17 +20,15 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     [SerializeField] private float dustSpawnInterval = 0.5f;
 
-
     public Inventory inventory;
-    public UIInventory uiInventory;
     public PlayerCondition condition;
     public Transform dropPosition;
 
     public ItemData itemData;
     public Action onInventoryToggle;
     public Action addItem;
-
-
+    public ItemData starterAxe;
+    public ItemData starterShield;
 
     public Inventory GetInventory()
     {
@@ -57,15 +55,11 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     [Header("스태미나 관련")]
     public Slider staminaSlider;
 
-
     private bool isInvincible = false;
-
-
     private bool isBlocking = false;
+
     [SerializeField] private float blockStaminaCost = 20f;
     [SerializeField] private float blockDamageReduction = 0.5f;
-
-
 
     public Transform cameraTransform;
     public float rotationSpeed = 10f;
@@ -77,10 +71,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     [Header("점프 설정")]
     public float jumpHeight = 3f;
     public float jumpStaminaCost = 15f;
-
     public bool justJumped = false;
-
     private float currentStamina;
+
     private PlayerStats PlayerStats => (PlayerStats)stats;
 
     [SerializeField] private float attackRange = 2f;      // 전방 공격 거리
@@ -96,7 +89,16 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     private float attackCooldownTimer = 0f;
     [SerializeField] private float attackInterval = 0.7f; // ⏱ 공격 간격
 
+    void Start()
+    {
+        if (starterAxe != null && inventory != null)
+            inventory.AddItem(starterAxe);
 
+        if (starterShield != null && inventory != null)
+            inventory.AddItem(starterShield);
+
+        EquipStarterItems();
+    }
 
     protected override void Awake()
     {
@@ -239,7 +241,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
 
     }
-
+    
     void DecreaseHunger() //배고픔
     {
         if (currentHunger > 0f)
@@ -458,6 +460,27 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         addItem?.Invoke(); 
     }
 
+    void EquipStarterItems()
+    {
+        TryEquipItem(starterAxe);
+        TryEquipItem(starterShield);
+    }
+
+    void TryEquipItem(ItemData item)
+    {
+        var invItem = inventory.items.Find(i => i.data == item);
+        if (invItem == null) return;
+
+        int index = inventory.items.IndexOf(invItem);
+        if (index < 0 || inventory.uiInventory == null) return;
+
+        var slot = inventory.uiInventory.slots[index];
+        if (slot.item == item)
+        {
+            slot.equipped = true;
+            inventory.uiInventory.RefreshUI(inventory.items);
+        }
+    }
 
     private void OnDrawGizmosSelected()
     {
