@@ -18,6 +18,10 @@ public class EnemyController : BaseCharacterController
 
     private Coroutine respawnCoroutine;
 
+    private bool isResting = false;
+    private float restTimer = 0f;
+
+
 
 
     private enum EnemyState { Wander, Chase, Attack, Return }
@@ -116,20 +120,44 @@ public class EnemyController : BaseCharacterController
 
     void Wander()
     {
+        if (isResting)
+        {
+            restTimer -= Time.deltaTime;
+            velocity.x = 0f;
+            velocity.z = 0f;
+            UpdateRunAnimation();
+
+            if (restTimer <= 0f)
+            {
+                Debug.Log("[Enemy] 휴식 종료, 배회 재개");
+                SetNewWanderTarget(); // 휴식 끝 → 새로운 목표
+            }
+            return;
+        }
 
         wanderTimer -= Time.deltaTime;
-        Vector3 direction = (wanderTarget - transform.position).normalized;
 
-        velocity.x = direction.x * EnemyStats.moveSpeed;
-        velocity.z = direction.z * EnemyStats.moveSpeed;
+        Vector3 direction = (wanderTarget - transform.position);
+        direction.y = 0f;
+
+        if (direction.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 3f);
+        }
+
+        Vector3 moveDir = direction.normalized;
+        velocity.x = moveDir.x * EnemyStats.moveSpeed;
+        velocity.z = moveDir.z * EnemyStats.moveSpeed;
 
         if (wanderTimer <= 0 || Vector3.Distance(transform.position, wanderTarget) < 1f)
         {
             SetNewWanderTarget();
         }
-        UpdateRunAnimation();
 
+        UpdateRunAnimation();
     }
+
 
     void ChasePlayer()
     {
@@ -162,10 +190,24 @@ public class EnemyController : BaseCharacterController
 
     void SetNewWanderTarget()
     {
+        // 20% 확률로 휴식
+        if (Random.value < 0.2f)
+        {
+            isResting = true;
+            restTimer = Random.Range(1.5f, 3f); // 1.5~3초간 휴식
+            velocity = Vector3.zero;
+            animator.SetFloat("Run", 0f); // 애니메이션 정지
+            Debug.Log("[Enemy] 배회 중 잠시 휴식");
+            return;
+        }
+
+        isResting = false;
+
         Vector2 randomCircle = Random.insideUnitCircle * wanderRadius;
         wanderTarget = spawnPoint + new Vector3(randomCircle.x, 0f, randomCircle.y);
         wanderTimer = wanderInterval;
     }
+
 
     void AttackPlayer()
     {
