@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,6 +10,9 @@ public class CharacterSelector : MonoBehaviour
     private int currentIndex = 0;          // 현재 선택된 캐릭터 인덱스
     private GameObject currentCharacter;   // 현재 씬에 표시된 캐릭터
     
+    [Header("캐릭터 이름")]
+    public string[] characterNames; // 캐릭터 이름 배열
+    public TextMeshProUGUI nameText; // 이름을 출력할 TMP 텍스트
     
     [Header("버튼")]
     public Button leftButton;              
@@ -35,6 +39,9 @@ public class CharacterSelector : MonoBehaviour
 
         currentCharacter = Instantiate(characters[index], Vector3.zero, Quaternion.Euler(0, 140, 0));
         currentCharacter.transform.position = new Vector3(0, 0, 0); // 중앙에 위치
+        
+        if (nameText != null && characterNames.Length > index)  // 캐릭터 이름 출력
+            nameText.text = characterNames[index];
     }
 
     void ShowPreviousCharacter()
