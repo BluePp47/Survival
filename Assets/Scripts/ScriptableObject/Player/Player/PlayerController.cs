@@ -28,6 +28,8 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     public ItemData itemData;
     public Action onInventoryToggle;
     public Action addItem;
+    public ItemData starterAxe;
+    public ItemData starterShield;
 
 
 
@@ -95,7 +97,16 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     private float attackCooldownTimer = 0f;
     [SerializeField] private float attackInterval = 0.7f; // ⏱ 공격 간격
 
+    void Start()
+    {
+        if (starterAxe != null && inventory != null)
+            inventory.AddItem(starterAxe);
 
+        if (starterShield != null && inventory != null)
+            inventory.AddItem(starterShield);
+
+        EquipStarterItems();
+    }
 
     protected override void Awake()
     {
@@ -458,7 +469,27 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         addItem?.Invoke(); 
     }
 
+    void EquipStarterItems()
+    {
+        TryEquipItem(starterAxe);
+        TryEquipItem(starterShield);
+    }
 
+    void TryEquipItem(ItemData item)
+    {
+        var invItem = inventory.items.Find(i => i.data == item);
+        if (invItem == null) return;
+
+        int index = inventory.items.IndexOf(invItem);
+        if (index < 0 || inventory.uiInventory == null) return;
+
+        var slot = inventory.uiInventory.slots[index];
+        if (slot.item == item)
+        {
+            slot.equipped = true;
+            inventory.uiInventory.RefreshUI(inventory.items);
+        }
+    }
     private void OnDrawGizmosSelected()
     {
         Vector3 attackOrigin = transform.position + transform.forward * attackRange * 0.5f;

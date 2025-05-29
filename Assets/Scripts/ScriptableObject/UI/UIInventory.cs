@@ -71,12 +71,7 @@ public class UIInventory : MonoBehaviour
             if (i < inventoryItems.Count)
             {
                 InventoryItem invItem = inventoryItems[i];
-
-                if (invItem == null || invItem.data == null)
-                {
-                    Debug.LogError($"[UI] 슬롯 {i}에 잘못된 데이터");
-                    continue;
-                }
+                Debug.Log($"[UI] 슬롯 {i} → {invItem.data.displayName} x{invItem.quantity}");
 
                 slots[i].item = invItem.data;
                 slots[i].quantity = invItem.quantity;
@@ -152,30 +147,46 @@ public class UIInventory : MonoBehaviour
         RemoveSelectedItem();
     }
 
+    public void OnEquipButton()
+    {
+        if (selectedItem == null || selectedItem.type != ItemType.Equipable) return;
+
+        slots[selectedItemIndex].equipped = true;
+        UpdateUI();
+        SelectItem(selectedItemIndex);
+    }
+
+    public void OnUnequipButton()
+    {
+        if (selectedItem == null || selectedItem.type != ItemType.Equipable) return;
+
+        slots[selectedItemIndex].equipped = false;
+        UpdateUI();
+        SelectItem(selectedItemIndex);
+    }
+
     public void OnDropButton()
     {
         if (selectedItem != null)
         {
-            ThrowItem(selectedItem);
-            RemoveSelectedItem();
+            Debug.Log("[UI] 드롭 버튼 클릭 - 아이템: " + selectedItem.displayName);
+
+            ThrowItem(selectedItem);                // 아이템 실제로 던지기
+            RemoveSelectedItem();                   // 인벤토리에서 제거
         }
     }
 
     void RemoveSelectedItem()
     {
-        if (selectedItemIndex < 0 || selectedItemIndex >= slots.Length) return;
+        if (selectedItem == null) return;
 
-        slots[selectedItemIndex].quantity--;
+        Debug.Log("[UI] RemoveSelectedItem 호출됨 - " + selectedItem.displayName);
 
-        if (slots[selectedItemIndex].quantity <= 0)
-        {
-            slots[selectedItemIndex].item = null;
-            selectedItem = null;
-            selectedItemIndex = -1;
-            ClearSelectedItemWindow();
-        }
+        inventory.RemoveItem(selectedItem, 1);
 
-        UpdateUI();
+        selectedItem = null;
+        selectedItemIndex = -1;
+        ClearSelectedItemWindow();
     }
 
     void UpdateUI()

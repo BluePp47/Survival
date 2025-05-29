@@ -4,64 +4,63 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
-    public ItemData item;
-
-    public UIInventory inventory;
+    [Header("UI")]
     public Button button;
     public Image icon;
-    public TextMeshProUGUI quatityText;
-    private Outline outline;
+    public TextMeshProUGUI quantityText;
+    public TextMeshProUGUI equippedText;
 
+    [Header("Data")]
+    public UIInventory inventory;
+    public ItemData item;
     public int index;
-    public bool equipped;
     public int quantity;
+    public bool equipped;
+
+    private Outline outline;
 
     private void Awake()
     {
         outline = GetComponent<Outline>();
     }
 
-    //private void OnEnable()
-    //{
-    //    outline.enabled = equipped;
-    //}
-
     public void Set()
     {
-        Debug.Log($"[ItemSlot] Set() 호출됨 - item: {(item != null ? item.name : "null")}");
+        if (item == null || item.icon == null || icon == null) return;
 
-        if (item == null)
-        {
-            Debug.LogWarning($"[ItemSlot] item == null → Set 중단. index: {index}");
-            return;
-        }
-
-        if (item.icon == null)
-        {
-            Debug.LogError($"[ItemSlot] item.icon == null → 아이콘 없음. item: {item.name}");
-            return;
-        }
-
-        if (icon == null)
-        {
-            Debug.LogError($"[ItemSlot] icon UI 연결 안됨");
-            return;
-        }
-
+        // 아이콘 표시
         icon.gameObject.SetActive(true);
         icon.sprite = item.icon;
 
-        quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
+        // 수량 표시 조건: 장비가 아닐 때만
+        if (quantityText != null)
+        {
+            bool showQuantity = item.type != ItemType.Equipable;
+            quantityText.text = (showQuantity && quantity > 1) ? quantity.ToString() : string.Empty;
+        }
 
-        Debug.Log($"[ItemSlot] Set() 완료: {item.name} x{quantity}");
+        // 장비일 때만 E 표시
+        if (equippedText != null)
+        {
+            bool showE = (item.type == ItemType.Equipable && equipped);
+            equippedText.gameObject.SetActive(showE);
+        }
     }
-
 
     public void Clear()
     {
         item = null;
-        icon.gameObject.SetActive(false);
-        quatityText.text = string.Empty;
+        quantity = 0;
+        equipped = false;
+
+        if (icon != null)
+            icon.gameObject.SetActive(false);
+
+        if (quantityText != null)
+            quantityText.text = string.Empty;
+
+        if (equippedText != null)
+            equippedText.gameObject.SetActive(false);
     }
 
     public void OnClickButton()
