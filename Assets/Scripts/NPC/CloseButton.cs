@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class CloseButton : MonoBehaviour
 {
+    GameObject npcWindow;
     
-    private void CloseButtonPressed()
+    public void CloseButtonPressed()
     {
-        gameObject.SetActive(false);
+        npcWindow.SetActive(false);
     }
 }
