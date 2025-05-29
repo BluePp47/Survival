@@ -29,7 +29,7 @@ public class CharacterSelector : MonoBehaviour
             Destroy(currentCharacter);
         }
 
-        currentCharacter = Instantiate(characters[index], Vector3.zero, Quaternion.identity);
+        currentCharacter = Instantiate(characters[index], Vector3.zero, Quaternion.Euler(0, 140, 0));
         currentCharacter.transform.position = new Vector3(0, 0, 0); // 중앙에 위치
     }
 
