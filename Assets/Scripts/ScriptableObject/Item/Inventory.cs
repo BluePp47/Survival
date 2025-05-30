@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -6,11 +7,13 @@ public class InventoryItem
 {
     public ItemData data;
     public int quantity;
+    public bool isEquipped;
 
     public InventoryItem(ItemData itemData, int amount = 1)
     {
         data = itemData;
         quantity = amount;
+        isEquipped = false;
     }
 }
 
@@ -18,6 +21,9 @@ public class Inventory : MonoBehaviour
 {
     public List<InventoryItem> items = new List<InventoryItem>();
     public PlayerController player;
+    public UIInventory uiInventory;
+
+    public event Action OnInventoryChanged;
 
     public void AddItem(ItemData item)
     {
@@ -27,6 +33,7 @@ public class Inventory : MonoBehaviour
             if (slot != null && slot.quantity < item.maxStackAmount)
             {
                 slot.quantity++;
+                uiInventory.RefreshUI(items);
                 return;
             }
         }
@@ -35,6 +42,8 @@ public class Inventory : MonoBehaviour
 
         player.itemData = item;
         player.addItem?.Invoke();
+
+        OnInventoryChanged?.Invoke();
     }
 
     public void UseItem(ItemData item)
@@ -64,5 +73,23 @@ public class Inventory : MonoBehaviour
         invItem.quantity--;
         if (invItem.quantity <= 0)
             items.Remove(invItem);
+    }
+
+    public void RemoveItem(ItemData item, int count = 1)
+    {
+        InventoryItem invItem = items.Find(i => i.data == item);
+        if (invItem == null)
+        {
+            return;
+        }
+
+        invItem.quantity -= count;
+
+        if (invItem.quantity <= 0)
+        {
+            items.Remove(invItem);
+        }
+
+        uiInventory.RefreshUI(items);
     }
 }
