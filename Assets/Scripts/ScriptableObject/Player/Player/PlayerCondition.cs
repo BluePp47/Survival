@@ -1,30 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Profiling;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+
+public enum ConditionType { Health, Hunger, Thirst, Stamina }
 
 public class PlayerCondition : MonoBehaviour
 {
-    public float curValue;
+    public ConditionType type;
     public float startValue = 100f;
-    public float maxValue;
-    public float passiveValue;
+    public float maxValue = 100f;
+    public float passiveChangePerSecond = 0f;
     public Image uiBar;
 
+    [HideInInspector]
+    public float curValue;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         curValue = startValue;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // ui업데이트 
-        uiBar.fillAmount = GetPercentage();
+        if (passiveChangePerSecond != 0f)
+        {
+            curValue += passiveChangePerSecond * Time.deltaTime;
+            curValue = Mathf.Clamp(curValue, 0f, maxValue);
+        }
+
+        if (uiBar != null)
+            uiBar.fillAmount = GetPercentage();
     }
 
     float GetPercentage()
