@@ -72,7 +72,7 @@ public class DialogUI : MonoBehaviour
             ShowDialog();
 
             if (IsLastDialog())
-                buttonText.text = "대화 종료";
+                buttonText.text = "나가기";
         }
     }
 
