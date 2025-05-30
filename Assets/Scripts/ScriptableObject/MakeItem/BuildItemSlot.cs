@@ -1,11 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildItemUI : MonoBehaviour
+public class BuildItemSlot : MonoBehaviour
 {
     public Image iconImage;
-    public Text itemNameText;
-    public Text costText;
     public Button buildButton;
 
     private BuildItem buildItem;
@@ -17,8 +15,6 @@ public class BuildItemUI : MonoBehaviour
         onBuildClicked = onClick;
 
         iconImage.sprite = item.icon;
-        itemNameText.text = item.itemName;
-        costText.text = $"Wood: {item.woodCost}, Stone: {item.stoneCost}";
         buildButton.onClick.AddListener(() => onBuildClicked?.Invoke(buildItem));
     }
 }
