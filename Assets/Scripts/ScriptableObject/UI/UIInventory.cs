@@ -8,6 +8,10 @@ public class UIInventory : MonoBehaviour
 {
     private Inventory inventory;
 
+    [Header("Build UI")]
+    public BuildUI buildUI;
+
+
     [Header("Inventory Slots")]
     public ItemSlot[] slots;
     public Transform slotPanel;
@@ -200,4 +204,11 @@ public class UIInventory : MonoBehaviour
     {
         inventoryWindow.SetActive(false);
     }
+
+    public void OnBuildButton()
+    {
+        inventoryWindow.SetActive(false);
+        buildUI.EnterBuildingSystem(); 
+    }
+
 }
