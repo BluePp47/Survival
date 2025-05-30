@@ -44,6 +44,7 @@ public class Inventory : MonoBehaviour
         player.addItem?.Invoke();
 
         OnInventoryChanged?.Invoke();
+        uiInventory.RefreshUI(items);
     }
 
     public void UseItem(ItemData item)
@@ -58,13 +59,13 @@ public class Inventory : MonoBehaviour
                 switch (effect.type)
                 {
                     case ConsumableType.Health:
-                        player.condition.Add(effect.value);
+                        player.healthCondition?.Add(effect.value);
                         break;
                     case ConsumableType.Hunger:
-                        player.condition.Add(effect.value);
+                        player.hungerCondition?.Add(effect.value);
                         break;
                     case ConsumableType.Thirsty:
-                        player.condition.Add(effect.value);
+                        player.thirstCondition?.Add(effect.value);
                         break;
                 }
             }
@@ -73,6 +74,8 @@ public class Inventory : MonoBehaviour
         invItem.quantity--;
         if (invItem.quantity <= 0)
             items.Remove(invItem);
+
+        uiInventory.RefreshUI(items);
     }
 
     public void RemoveItem(ItemData item, int count = 1)
