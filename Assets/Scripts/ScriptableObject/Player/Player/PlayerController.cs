@@ -21,7 +21,6 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     [SerializeField] private float dustSpawnInterval = 0.5f;
 
     public Inventory inventory;
-    public PlayerCondition condition;
     public Transform dropPosition;
 
     public ItemData itemData;
@@ -30,10 +29,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     public ItemData starterAxe;
     public ItemData starterShield;
 
-    public Inventory GetInventory()
-    {
-        return inventory;
-    }
+    
 
     [Header("체력 관련")]
     public Slider healthSlider;
@@ -41,17 +37,15 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     public float invincibleTime = 1.5f;
 
     [Header("배고픔 관련")]
-    public Image hungerFillImage; 
+    public Image hungerFillImage;
     public float maxHunger = 100f;
-    public float currentHunger = 100f;
-    public float hungerDecreaseRate = 2f; 
-    
+    public float hungerDecreaseRate = 2f;
+
     [Header("목마름 관련")]
-    public Slider thirstSlider; 
-    public float maxThirst = 100f;  
-    public float currentThirst = 100f; 
+    public Slider thirstSlider;
+    public float maxThirst = 100f;
     public float thirstDecreaseRate = 1.0f;
-    
+
     [Header("스태미나 관련")]
     public Slider staminaSlider;
 
@@ -72,7 +66,6 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     public float jumpHeight = 3f;
     public float jumpStaminaCost = 15f;
     public bool justJumped = false;
-    private float currentStamina;
 
     private PlayerStats PlayerStats => (PlayerStats)stats;
 
@@ -88,6 +81,11 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     private float attackCooldownTimer = 0f;
     [SerializeField] private float attackInterval = 0.7f; // ⏱ 공격 간격
+
+    public PlayerCondition healthCondition;
+    public PlayerCondition hungerCondition;
+    public PlayerCondition thirstCondition;
+    public PlayerCondition staminaCondition;
 
     void Start()
     {
@@ -135,20 +133,31 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
                 TryJump();
         };
         inputActions.Player.Attack.performed += _ => TryBasicAttack();
+
+        foreach (var condition in GetComponentsInChildren<PlayerCondition>())
+        {
+            switch (condition.type)
+            {
+                case ConditionType.Health:
+                    healthCondition = condition;
+                    break;
+                case ConditionType.Hunger:
+                    hungerCondition = condition;
+                    break;
+                case ConditionType.Thirst:
+                    thirstCondition = condition;
+                    break;
+                case ConditionType.Stamina:
+                    staminaCondition = condition;
+                    break;
+            }
+        }
     }
 
     void OnEnable()
     {
         inputActions.Enable();
         inputActions.Player.Inventory.performed += ctx => onInventoryToggle?.Invoke();
-        currentStamina = PlayerStats.stamina;
-        currentHunger = maxHunger;
-        currentThirst = maxThirst;
-
-        UpdateStaminaUI();
-        UpdateHealthUI();
-        UpdateHungerUI();
-        UpdateThirstUI();
     }
 
     void OnDisable() => inputActions.Disable();
@@ -158,17 +167,13 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         base.Update();
         HandleMovement();
         RegenerateStamina();
-        
-        UpdateStaminaUI();
-        
+
         DecreaseHunger();
-        UpdateHungerUI();
-        
+
         DecreaseThirst();
-        UpdateThirstUI();
-        
+
         attackCooldownTimer -= Time.deltaTime;
-        
+
     }
     void HandleMovement()
     {
@@ -182,17 +187,16 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f); // 즉시 회전
 
-           
+
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
             if (isSprinting)
             {
-                if (currentStamina > 0f)
+                if (staminaCondition.curValue > 0f)
                 {
                     speedMultiplier = 1.5f;
-                    currentStamina -= 20f * Time.deltaTime;
-                    currentStamina = Mathf.Max(currentStamina, 0f);
+                    staminaCondition.Subtract(20f * Time.deltaTime);
                 }
                 else
                 {
@@ -216,7 +220,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             velocity.z = 0f;
         }
 
-        
+
 
 
         animator.SetFloat("Run", moveAmount * speedMultiplier);
@@ -245,50 +249,25 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
 
     }
-    
-    void DecreaseHunger() //배고픔
-    {
-        if (currentHunger > 0f)
-        {
-            currentHunger -= hungerDecreaseRate * Time.deltaTime;
-            currentHunger = Mathf.Max(currentHunger, 0f);
-        }
-    }
-    
-    void UpdateHungerUI()
-    {
-        if (hungerFillImage == null) return;
 
-        float percent = currentHunger / maxHunger;
-        hungerFillImage.fillAmount = percent;
-    }
-    
-    void DecreaseThirst() //목마름
+    void DecreaseHunger()
     {
-        if (currentThirst > 0f)
-        {
-            currentThirst -= thirstDecreaseRate * Time.deltaTime;
-            currentThirst = Mathf.Max(currentThirst, 0f);
-        }
+        hungerCondition?.Subtract(hungerDecreaseRate * Time.deltaTime);
     }
 
-// 슬라이더 UI 업데이트
-    void UpdateThirstUI()
+    void DecreaseThirst()
     {
-        if (thirstSlider == null) return;
-
-        thirstSlider.maxValue = maxThirst;
-        thirstSlider.value = Mathf.Clamp(currentThirst, 0f, maxThirst);
+        thirstCondition?.Subtract(thirstDecreaseRate * Time.deltaTime);
     }
 
     void RegenerateStamina()
     {
-        if (!isSprinting && currentStamina < PlayerStats.stamina)
+        if (!isSprinting && staminaCondition.curValue < staminaCondition.maxValue)
         {
-            currentStamina += PlayerStats.staminaRegenRate * Time.deltaTime;
-            currentStamina = Mathf.Min(currentStamina, PlayerStats.stamina);
+            staminaCondition.Add(PlayerStats.staminaRegenRate * Time.deltaTime);
         }
     }
+
 
     void TryJump()
     {
@@ -298,9 +277,9 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             return;
         }
 
-        if (currentStamina >= jumpStaminaCost)
+        if (staminaCondition.curValue >= jumpStaminaCost)
         {
-            currentStamina -= jumpStaminaCost;
+            staminaCondition.Subtract(jumpStaminaCost);
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             justJumped = true;
 
@@ -335,12 +314,11 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
         float finalDamage = attackerPower;
 
-        if (isBlocking && currentStamina >= blockStaminaCost)
+        if (isBlocking && staminaCondition.curValue >= blockStaminaCost)
         {
             finalDamage *= (1f - blockDamageReduction); // 50% 피해 감소
-            currentStamina -= blockStaminaCost;
-            currentStamina = Mathf.Max(0f, currentStamina);
-            Debug.Log($"막기 성공! 피해 감소됨. 남은 스태미나: {currentStamina}");
+            staminaCondition.Subtract(blockStaminaCost);
+            Debug.Log($"막기 성공! 피해 감소됨. 남은 스태미나: {staminaCondition.curValue}");
         }
         else
         {
@@ -350,36 +328,18 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         float defensePercent = stats.defense / (stats.defense + 100f);
         int damage = Mathf.RoundToInt(finalDamage * (1f - defensePercent));
 
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(currentHealth, 0);
-        UpdateHealthUI();
+        healthCondition?.Subtract(damage);
 
         if (damageFlashUI != null)
             damageFlashUI.Flash();
 
-        if (currentHealth <= 0)
+        if (healthCondition != null && healthCondition.curValue <= 0)
             Die();
         else
             StartCoroutine(InvincibilityCoroutine());
     }
 
 
-    private void UpdateHealthUI()
-    {
-        if (healthSlider == null) return;
-
-        healthSlider.maxValue = stats.maxHealth;  // ✅ maxHealth는 stats에서 가져옴
-        healthSlider.value = Mathf.Clamp(currentHealth, 0, stats.maxHealth);
-    }
-
-    private void UpdateStaminaUI()
-    {
-        if (staminaSlider == null) return;
-
-        staminaSlider.maxValue = PlayerStats.stamina;
-        staminaSlider.value = Mathf.Clamp(currentStamina, 0f, PlayerStats.stamina);
-    }
-    
 
     private IEnumerator InvincibilityCoroutine()
     {
@@ -421,7 +381,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             return;
         }
 
-       
+
 
         animator.SetTrigger("Attack");
         Invoke(nameof(PlayDelayedAttackAudio), 0.45f);
@@ -457,17 +417,15 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         }
     }
 
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
 
     public void AddItemToInventory(ItemData item)
     {
         this.itemData = item;
-        addItem?.Invoke(); 
-    }
-
-    void EquipStarterItems()
-    {
-        TryEquipItem(starterAxe);
-        TryEquipItem(starterShield);
+        addItem?.Invoke();
     }
 
     void TryEquipItem(ItemData item)
