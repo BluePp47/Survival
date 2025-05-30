@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeskinProduction : MonoBehaviour
+public class CraftingDesk : MonoBehaviour
 {
     [SerializeField] GameObject deskinProductionUI;
 
