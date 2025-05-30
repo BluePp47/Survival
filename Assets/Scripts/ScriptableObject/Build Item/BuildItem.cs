@@ -6,6 +6,7 @@ public class BuildItem : ScriptableObject
     public string itemName;
     public GameObject prefab;
     public Sprite icon;
-    public int woodCost; // ÇÊ¿ä ÀÚ¿ø ºñ¿ë (¿¹½Ã ³ª¹«)
-    public int stoneCost; // ÇÊ¿ä ÀÚ¿ø ºñ¿ë (¿¹½Ã µ¹)
+    public string itemDescription;
+    public int woodCost; // ï¿½Ê¿ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    public int stoneCost; // ï¿½Ê¿ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
 }
