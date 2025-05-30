@@ -5,7 +5,7 @@ using UnityEngine;
 public class ResourceSpawner : MonoBehaviour
 {
     public GameObject[] resourcePrefabs;
-    public int spawnCount = 10;
+    public int spawnCount = 50;
     public Vector2 spawnAreaSize = new Vector2(50f, 50f);
     public Vector3 centerPosition = Vector3.zero;
     public LayerMask groundLayer;
@@ -46,8 +46,7 @@ public class ResourceSpawner : MonoBehaviour
                 if (tooClose) continue;
 
                 GameObject prefab = resourcePrefabs[Random.Range(0, resourcePrefabs.Length)];
-
-                GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity);
+                GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity, this.transform);
                 occupiedPositions.Add(spawnPos);
 
                 Resource res = obj.GetComponent<Resource>();
