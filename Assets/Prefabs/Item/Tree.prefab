@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5564514903581179704}
   - component: {fileID: 4835609224882574556}
   - component: {fileID: 1782227068139310787}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,3 +121,4 @@ MonoBehaviour:
   itemToGive: {fileID: 11400000, guid: 94f5dcd824ece3d4db148d2655279291, type: 2}
   quantityPerHit: 1
   capacity: 5
+  spawner: {fileID: 0}

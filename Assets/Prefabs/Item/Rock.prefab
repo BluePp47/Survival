@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1547708943342593913}
   - component: {fileID: 4152235069231698222}
   - component: {fileID: 5218642250979742476}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,3 +121,4 @@ MonoBehaviour:
   itemToGive: {fileID: 11400000, guid: 0b026680de5255d40b163f1150066bf2, type: 2}
   quantityPerHit: 1
   capacity: 5
+  spawner: {fileID: 0}

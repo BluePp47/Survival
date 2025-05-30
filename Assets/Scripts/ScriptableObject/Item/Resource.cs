@@ -8,6 +8,9 @@ public class Resource : MonoBehaviour
     public int quantityPerHit = 1;
     public int capacity = 5;
 
+    [HideInInspector]
+    public ResourceSpawner spawner;
+
     public void Gather(Vector3 hitPoint, Vector3 hitNormal)
     {
         if (capacity <= 0) return;
@@ -36,6 +39,12 @@ public class Resource : MonoBehaviour
 
         if (capacity <= 0)
         {
+            if (spawner != null)
+            {
+                spawner.UnregisterPosition(transform.position);
+                spawner.SpawnOne();
+            }
+
             Destroy(gameObject);
         }
     }
