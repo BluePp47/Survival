@@ -10,7 +10,7 @@ public class DialogUI : MonoBehaviour
     [SerializeField] private List<Button> buttons;
 
     [SerializeField] private TMP_Text content;
-    [SerializeField] private Button Next;
+    [SerializeField] private Button btnNext;
     [SerializeField] private TMP_Text buttonText;
 
     private bool IsLastDialog()
@@ -22,7 +22,7 @@ public class DialogUI : MonoBehaviour
 
     private void Awake()
     {
-        Next.onClick.AddListener(OnNextButtonPressed);
+        btnNext.onClick.AddListener(OnNextButtonPressed);
     }
 
     private void OnEnable() //동작시시
