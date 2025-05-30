@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5476275, g: 0.85462385, b: 0.9222565, a: 1}
+  m_IndirectSpecularColor: {r: 0.547629, g: 0.8546218, b: 0.9222541, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5768,7 +5768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665574377}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.050634228, y: 0.90327054, z: -0.11119767, w: -0.4113072}
+  m_LocalRotation: {x: -0.050634235, y: 0.90327054, z: -0.11119769, w: -0.4113072}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6354,7 +6354,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691737477}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.050634217, y: 0.90327054, z: -0.11119766, w: -0.41130716}
+  m_LocalRotation: {x: -0.05063423, y: 0.90327054, z: -0.111197695, w: -0.41130716}
   m_LocalPosition: {x: -3.945632, y: -18.19, z: -2.410102}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16812,7 +16812,7 @@ MonoBehaviour:
   invincibleTime: 1.5
   hungerFillImage: {fileID: 1768728834}
   maxHunger: 100
-  hungerDecreaseRate: 2
+  hungerDecreaseRate: 0.5
   thirstSlider: {fileID: 174724144}
   maxThirst: 100
   thirstDecreaseRate: 1
@@ -16821,7 +16821,7 @@ MonoBehaviour:
   blockDamageReduction: 0.5
   cameraTransform: {fileID: 691737480}
   rotationSpeed: 1
-  jumpHeight: 3
+  jumpHeight: 2
   jumpStaminaCost: 15
   justJumped: 0
   attackRange: 2
@@ -18553,7 +18553,7 @@ MonoBehaviour:
   - {fileID: 1021442872}
   - {fileID: 853216040}
   content: {fileID: 7352186428600236893}
-  Next: {fileID: 0}
+  btnNext: {fileID: 0}
   buttonText: {fileID: 5490803739495349981}
 --- !u!1 &4412296845999717931
 GameObject:
