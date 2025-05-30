@@ -17,5 +17,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: f6f37a18b1b72e9459994e144d199a80, type: 3}
   itemDescription: "\uC801\uC774 \uB4E4\uC5B4\uC624\uC9C0 \uC54A\uAC8C \uB9C9\uC744
     \uC218 \uC788\uC2B5\uB2C8\uB2E4."
-  woodCost: 0
-  stoneCost: 5
+  materialRequirements:
+  - resourceItem: {fileID: 11400000, guid: 0b026680de5255d40b163f1150066bf2, type: 2}
+    requiredAmount: 5
+  buildItemDatabase: {fileID: 0}
