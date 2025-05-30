@@ -17,18 +17,17 @@ public class CraftingUI : MonoBehaviour
     public TextMeshProUGUI selectedItemName;
     public TextMeshProUGUI selectedItemDescription;
     
-    // 필요한 재료의 이미지/이름/갯수
-    public Image selectedItemMaterial_image;
-    public TextMeshProUGUI selectedItemMaterial_name;
-    public TextMeshProUGUI selectedItemMaterial_count;
+    // 필요한 재료
+    public Transform materialListParent; // 생성 위치
+    public GameObject materialSlotPrefab; // 프리팹
 
     // 만들기 버튼
     public Button MakeButton;
 
     Inventory playerInventory;
-    public Transform materialListParent;
 
-    public GameObject materialSlotPrefab;    private void Start()
+    
+    private void Start()
     {
         foreach (var item in buildDatabase.buildItems)
         {
