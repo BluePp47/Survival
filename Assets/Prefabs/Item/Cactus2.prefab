@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 417424}
-  m_Layer: 0
+  - component: {fileID: 7718357449970120992}
+  - component: {fileID: 6128435042894618956}
+  m_Layer: 9
   m_Name: Cactus2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +34,43 @@ Transform:
   - {fileID: 440928}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7718357449970120992
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105562}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3463244, y: 4.400522, z: 1.0830469}
+  m_Center: {x: 0.06871581, y: 2.1873279, z: 0.017392159}
+--- !u!114 &6128435042894618956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05610ff4f6a32754ebc7eceff7d71032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemToGive: {fileID: 11400000, guid: 6f683de3993f8b840b2368690df84ba5, type: 2}
+  quantityPerHit: 1
+  capacity: 3
+  spawner: {fileID: 0}
 --- !u!1 &165830
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +82,7 @@ GameObject:
   - component: {fileID: 440928}
   - component: {fileID: 3376382}
   - component: {fileID: 2380152}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: cactus2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

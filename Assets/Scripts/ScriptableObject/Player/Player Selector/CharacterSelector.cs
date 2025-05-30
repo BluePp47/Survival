@@ -20,16 +20,25 @@ public class CharacterSelector : MonoBehaviour
 
     public Button startButton;
     
+    private AdditiveSceneLoader sceneLoader;
     void Start()
     {
-        
+       
         ShowCharacter(currentIndex); // 첫 캐릭터 보여주기
 
         leftButton.onClick.AddListener(ShowPreviousCharacter);
         rightButton.onClick.AddListener(ShowNextCharacter);
         startButton.onClick.AddListener(StartGame);
+        sceneLoader = GetComponent<AdditiveSceneLoader>();
     }
 
+    
+// 씬 교체 (이전 씬 언로드 + 새 씬 로드)
+    private void ReplaceWithMenuScene()
+    {
+        StartCoroutine(sceneLoader.ReplaceSceneAdditive("CharacterSelect", "3Dsurvibe")); //앞에 스타트씬 추가
+    }
+    
     void ShowCharacter(int index)
     {
         if (currentCharacter != null)
@@ -59,7 +68,8 @@ public class CharacterSelector : MonoBehaviour
     void StartGame() //다른씬으로 이동하는 코드 !
     {
         PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
-        SceneManager.LoadScene("3Dsurvibe"); // 이동할 씬 이름
+        // SceneManager.LoadScene("3Dsurvibe"); // 이동할 씬 이름
+        ReplaceWithMenuScene(); // 이동할 씬 이름
         Debug.Log("게임씬 이동");
     }
     
