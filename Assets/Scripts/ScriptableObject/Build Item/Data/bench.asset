@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd8237f0ceb84a4fb42ebe433f312df, type: 3}
   m_Name: bench
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: "\uBCA4\uCE58"
   prefab: {fileID: 3316259553242379782, guid: 74090113f6fd48c46b985d85aada6ec5, type: 3}
-  icon: {fileID: 0}
-  woodCost: 0
-  stoneCost: 0
+  icon: {fileID: 21300000, guid: b2b03188ec3aec040992fab2a925e0f9, type: 3}
+  itemDescription: "\uC549\uC544\uC11C \uC274 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  materialRequirements:
+  - resourceItem: {fileID: 11400000, guid: 94f5dcd824ece3d4db148d2655279291, type: 2}
+    requiredAmount: 5
+  buildItemDatabase: {fileID: 0}

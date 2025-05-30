@@ -1,4 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class BuildMaterialRequirement
+{
+    public ItemData resourceItem;  // ë‚˜ë¬´, ëŒ ê°™ì€ ìì›
+    public int requiredAmount;
+}
+
+
 
 [CreateAssetMenu(menuName = "Building/Build Item")]
 public class BuildItem : ScriptableObject
@@ -6,6 +16,11 @@ public class BuildItem : ScriptableObject
     public string itemName;
     public GameObject prefab;
     public Sprite icon;
-    public int woodCost; // ÇÊ¿ä ÀÚ¿ø ºñ¿ë (¿¹½Ã ³ª¹«)
-    public int stoneCost; // ÇÊ¿ä ÀÚ¿ø ºñ¿ë (¿¹½Ã µ¹)
+    public string itemDescription;
+
+    public List<BuildMaterialRequirement> materialRequirements;
+
+    public BuildItemDatabase buildItemDatabase; // ì œì‘ëœ ì•„ì´í…œì— ëŒ€í•œ ì •ë³´ (optional)
+
+
 }

@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class UIInventory : MonoBehaviour
 {
     private Inventory inventory;
+
+    [Header("Build UI")]
+    public BuildUI buildUI;
+
 
     [Header("Inventory Slots")]
     public ItemSlot[] slots;
@@ -25,9 +29,9 @@ public class UIInventory : MonoBehaviour
     public GameObject equipButton;
     public GameObject unequipButton;
     public GameObject dropButton;
+    public GameObject closeButton;
 
     private PlayerController controller;
-    private PlayerCondition condition;
 
     private ItemData selectedItem;
     private int selectedItemIndex = -1;
@@ -44,10 +48,8 @@ public class UIInventory : MonoBehaviour
         controller = CharacterManager.Instance.Player;
         controller.onInventoryToggle += Toggle;
 
-        inventory = controller.GetInventory();
-        condition = controller.condition;
-        dropPosition = controller.dropPosition;
-
+        inventory = CharacterManager.Instance.Player.GetInventory();
+        dropPosition = inventory.player.dropPosition;
         inventoryWindow.SetActive(false);
 
         slots = new ItemSlot[slotPanel.childCount];
@@ -111,32 +113,6 @@ public class UIInventory : MonoBehaviour
         }
     }
 
-    ItemSlot GetItemStack(ItemData data)
-    {
-        foreach (var slot in slots)
-        {
-            if (slot.item == data && slot.quantity < data.maxStackAmount)
-                return slot;
-        }
-        return null;
-    }
-
-    ItemSlot GetEmptySlot()
-    {
-        foreach (var slot in slots)
-        {
-            if (slot.item == null)
-                return slot;
-        }
-        return null;
-    }
-
-    void ThrowItem(ItemData data)
-    {
-        if (data.dropPrefab != null && dropPosition != null)
-            Instantiate(data.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 300));
-    }
-
     public void SelectItem(int index)
     {
         if (slots[index].item == null) return;
@@ -166,18 +142,7 @@ public class UIInventory : MonoBehaviour
     {
         if (selectedItem == null || selectedItem.type != ItemType.Consumable) return;
 
-        foreach (var stat in selectedItem.consumables)
-        {
-            switch (stat.type)
-            {
-                case ConsumableType.Health:
-                case ConsumableType.Hunger:
-                case ConsumableType.Thirsty:
-                    condition.Add(stat.value);
-                    break;
-            }
-        }
-
+        inventory.UseItem(selectedItem);
         RemoveSelectedItem();
     }
 
@@ -213,10 +178,12 @@ public class UIInventory : MonoBehaviour
     {
         if (selectedItem != null)
         {
-            ThrowItem(selectedItem);
-            inventory.RemoveItem(selectedItem); 
+            if (selectedItem.dropPrefab != null && dropPosition != null)
+                Instantiate(selectedItem.dropPrefab, dropPosition.position, Quaternion.identity);
+
+            inventory.RemoveItem(selectedItem);
             RemoveSelectedItem();
-            RefreshUI(inventory.items); 
+            RefreshUI(inventory.items);
         }
     }
 
@@ -231,6 +198,17 @@ public class UIInventory : MonoBehaviour
         equipButton.SetActive(false);
         unequipButton.SetActive(false);
         dropButton.SetActive(false);
+    }
+
+    public void OnCloseButton()
+    {
+        inventoryWindow.SetActive(false);
+    }
+
+    public void OnBuildButton()
+    {
+        inventoryWindow.SetActive(false);
+        buildUI.EnterBuildingSystem(); 
     }
 
 }

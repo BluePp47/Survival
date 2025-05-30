@@ -44,6 +44,7 @@ public class Inventory : MonoBehaviour
         player.addItem?.Invoke();
 
         OnInventoryChanged?.Invoke();
+        uiInventory.RefreshUI(items);
     }
 
     public void UseItem(ItemData item)
@@ -58,13 +59,13 @@ public class Inventory : MonoBehaviour
                 switch (effect.type)
                 {
                     case ConsumableType.Health:
-                        player.condition.Add(effect.value);
+                        player.healthCondition?.Add(effect.value);
                         break;
                     case ConsumableType.Hunger:
-                        player.condition.Add(effect.value);
+                        player.hungerCondition?.Add(effect.value);
                         break;
                     case ConsumableType.Thirsty:
-                        player.condition.Add(effect.value);
+                        player.thirstCondition?.Add(effect.value);
                         break;
                 }
             }
@@ -73,6 +74,8 @@ public class Inventory : MonoBehaviour
         invItem.quantity--;
         if (invItem.quantity <= 0)
             items.Remove(invItem);
+
+        uiInventory.RefreshUI(items);
     }
 
     public void RemoveItem(ItemData item, int count = 1)
@@ -92,4 +95,24 @@ public class Inventory : MonoBehaviour
 
         uiInventory.RefreshUI(items);
     }
+
+     public bool HasEnoughItem(ItemData item, int requiredAmount)
+    {
+        InventoryItem invItem = items.Find(i => i.data == item);
+        return invItem != null && invItem.quantity >= requiredAmount;
+    }
+    public void SpendItem(ItemData item, int amount)
+    {
+        InventoryItem invItem = items.Find(i => i.data == item);
+        if (invItem != null)
+        {
+            invItem.quantity -= amount;
+            if (invItem.quantity <= 0)
+            {
+                items.Remove(invItem);
+            }
+
+            uiInventory.RefreshUI(items);
+        }
+    }   
 }

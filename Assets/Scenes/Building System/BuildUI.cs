@@ -41,4 +41,10 @@ public class BuildUI : MonoBehaviour
         BuildingUI.SetActive(false);
         Inventory.SetActive(true);
     }
+
+    public void EnterBuildingSystem()
+    {
+        BuildingUI.SetActive(true);
+        Inventory.SetActive(false);
+    }
 }
