@@ -92,4 +92,24 @@ public class Inventory : MonoBehaviour
 
         uiInventory.RefreshUI(items);
     }
+
+     public bool HasEnoughItem(ItemData item, int requiredAmount)
+    {
+        InventoryItem invItem = items.Find(i => i.data == item);
+        return invItem != null && invItem.quantity >= requiredAmount;
+    }
+    public void SpendItem(ItemData item, int amount)
+    {
+        InventoryItem invItem = items.Find(i => i.data == item);
+        if (invItem != null)
+        {
+            invItem.quantity -= amount;
+            if (invItem.quantity <= 0)
+            {
+                items.Remove(invItem);
+            }
+
+            uiInventory.RefreshUI(items);
+        }
+    }   
 }
