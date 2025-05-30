@@ -36,7 +36,7 @@ public class CharacterSelector : MonoBehaviour
 // 씬 교체 (이전 씬 언로드 + 새 씬 로드)
     private void ReplaceWithMenuScene()
     {
-        StartCoroutine(sceneLoader.ReplaceSceneAdditive("CharacterSelect", "3Dsurvibe"));
+        StartCoroutine(sceneLoader.ReplaceSceneAdditive("CharacterSelect", "3Dsurvibe")); //앞에 스타트씬 추가
     }
     
     void ShowCharacter(int index)
