@@ -18,16 +18,17 @@ public class CraftingUI : MonoBehaviour
     public TextMeshProUGUI selectedItemDescription;
     
     // 필요한 재료의 이미지/이름/갯수
-    public Image selectedItemMeterial_image;
-    public TextMeshProUGUI selectedItemMeterial_name;
-    public TextMeshProUGUI selectedItemMeterial_count;
+    public Image selectedItemMaterial_image;
+    public TextMeshProUGUI selectedItemMaterial_name;
+    public TextMeshProUGUI selectedItemMaterial_count;
 
     // 만들기 버튼
     public Button MakeButton;
 
     Inventory playerInventory;
-    private PlayerController controller;
-    private void Start()
+    public Transform materialListParent;
+
+    public GameObject materialSlotPrefab;    private void Start()
     {
         foreach (var item in buildDatabase.buildItems)
         {
@@ -41,14 +42,31 @@ public class CraftingUI : MonoBehaviour
     }
 
     private void SelectItem(BuildItem item)
-{
-    currentSelectedItem = item;
+    {
+        currentSelectedItem = item;
 
-    selectedItemName.text = item.itemName;
-    selectedItemDescription.text = item.itemDescription;
-    selectedItemMeterial_image.sprite = item.icon;
-    selectedItemMeterial_name.text = "목재 + 석재";
-    selectedItemMeterial_count.text = $"0";
+        selectedItemName.text = item.itemName;
+        selectedItemDescription.text = item.itemDescription;
+        //이전 UI 제거
+        foreach (Transform child in materialListParent)
+                Destroy(child.gameObject);
+
+            // 새로운 재료 목록 표시
+            foreach (var req in item.materialRequirements)
+            {
+                var slot = Instantiate(materialSlotPrefab, materialListParent);
+                Image icon = slot.transform.Find("Icon_material").GetComponent<Image>();
+                TextMeshProUGUI name = slot.transform.Find("Name_material").GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI number = slot.transform.Find("number_material").GetComponent<TextMeshProUGUI>();
+
+                icon.sprite = req.resourceItem.icon;
+                name.text = req.resourceItem.displayName;
+                int currentAmount = ResorceManager.Instance.GetAmount(req.resourceItem);
+                number.text = $"{currentAmount} / {req.requiredAmount}";
+        }
+    // selectedItemMeterial_image.sprite = item.icon;
+    // selectedItemMeterial_name.text = "목재 + 석재";
+    // selectedItemMeterial_count.text = $"0";
 }
 
 
@@ -90,27 +108,8 @@ public class CraftingUI : MonoBehaviour
         }
     }
 
-    public Transform materialListParent;
-    public GameObject materialSlotPrefab;
 
-    public void ShowMaterialInfo(BuildItem item)
-    {
-    // 이전 UI 제거
-        foreach (Transform child in materialListParent)
-            Destroy(child.gameObject);
 
-        // 새로운 재료 목록 표시
-        foreach (var req in item.materialRequirements)
-        {
-            var slot = Instantiate(materialSlotPrefab, materialListParent);
-            var icon = slot.transform.Find("Icon").GetComponent<Image>();
-            var text = slot.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-
-            icon.sprite = req.resourceItem.icon;
-            int currentAmount = ResorceManager.Instance.GetAmount(req.resourceItem);
-            text.text = $"{currentAmount} / {req.requiredAmount}";
-        }
-    }
 }
 
 
