@@ -42,6 +42,7 @@ public class UIController : MonoBehaviour
     // 모든 UI 끄기
     public void CloseAllUI()
     {
+        Debug.Log("모든UI를닫았습니다");
         foreach (var ui in uiList)
         {
             ui.uiObject.SetActive(false);
