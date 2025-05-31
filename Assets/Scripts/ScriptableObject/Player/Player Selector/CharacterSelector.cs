@@ -19,6 +19,8 @@ public class CharacterSelector : MonoBehaviour
     public Button rightButton;             
 
     public Button startButton;
+
+    [SerializeField] AudioClip selectcharacterSound;
     
     private AdditiveSceneLoader sceneLoader;
     void Start()
@@ -70,6 +72,7 @@ public class CharacterSelector : MonoBehaviour
         PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
         // SceneManager.LoadScene("3Dsurvibe"); // 이동할 씬 이름
         ReplaceWithMenuScene(); // 이동할 씬 이름
+        SoundManager.Instance.PlaySFX(selectcharacterSound);
         Debug.Log("게임씬 이동");
     }
     
