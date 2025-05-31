@@ -18,8 +18,10 @@ public class PlayerInteraction : MonoBehaviour
 
     public void OnInteraction()
     {
-        interactableObject.SendMessage("Interact", SendMessageOptions.DontRequireReceiver);
-
+        if(interactableObject != null)
+        {
+            interactableObject.SendMessage("Interact", SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
