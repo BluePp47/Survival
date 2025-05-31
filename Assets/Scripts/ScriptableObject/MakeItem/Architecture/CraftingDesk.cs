@@ -9,6 +9,10 @@ public class CraftingDesk : MonoBehaviour
 {
     [SerializeField] GameObject deskinProductionUI;
 
+    void Start()
+    {
+        Time.timeScale = 1.0f;
+    }
     void ToggleCursor()
     {
         bool isLocked = Cursor.lockState == CursorLockMode.Locked;
