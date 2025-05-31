@@ -18,13 +18,13 @@ public class PlayerInteraction : MonoBehaviour
         interactUI.SetActive(false);
     }
 
-    public void OnInteraction()
-    {
-        if(interactableObject != null)
-        {
-            interactableObject.SendMessage("Interact", SendMessageOptions.DontRequireReceiver);
-        }
-    }
+    // public void OnInteraction()
+    // {
+    //     if(interactableObject != null)
+    //     {
+    //         interactableObject.SendMessage("Interact", SendMessageOptions.DontRequireReceiver);
+    //     }
+    // }
 
     // void OnCollisionEnter(Collision collision)
     // {
