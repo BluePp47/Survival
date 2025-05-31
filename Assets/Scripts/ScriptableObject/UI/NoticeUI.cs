@@ -8,7 +8,7 @@ public class NoticeUI : MonoBehaviour
 
     [SerializeField] private GameObject noticePanel;
     [SerializeField] private TMP_Text noticeText;
-    [SerializeField] private float displayDuration = 2f;
+    [SerializeField] private float displayDuration = 1f;
 
     private Coroutine hideCoroutine;
 
