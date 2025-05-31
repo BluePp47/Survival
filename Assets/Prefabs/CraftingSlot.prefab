@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 6258892329483146695}
   - component: {fileID: 1822146965183487966}
   - component: {fileID: 779327761109674568}
+  - component: {fileID: 1066017842571400758}
   m_Layer: 0
   m_Name: CraftingSlot
   m_TagString: Untagged
@@ -287,3 +288,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconImage: {fileID: 926514648973182984}
   buildButton: {fileID: 1822146965183487966}
+--- !u!114 &1066017842571400758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997411882670281810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c5bf4b50ee74a2d8127ad70e033b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -16,7 +16,11 @@ MonoBehaviour:
   maxHealth: 100
   attackPower: 5
   defense: 5
-  moveSpeed: 3
+  moveSpeed: 7
   jumpHeight: 3
   stamina: 100
   staminaRegenRate: 5
+  hunger: 100
+  thirst: 100
+  hungerDecayRate: 1
+  thirstDecayRate: 1.5
