@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Interactable
+  - CraftingDesk
+  - Door
   layers:
   - Default
   - TransparentFX

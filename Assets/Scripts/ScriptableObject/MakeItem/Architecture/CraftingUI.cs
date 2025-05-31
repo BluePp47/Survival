@@ -76,6 +76,7 @@ public class CraftingUI : MonoBehaviour
         {
             SpendResources(item);
             Debug.Log("설계도에 추가되었습니다");
+            
             // 설계도에 추가하기.  nstantiate(item.prefab, Vector3.zero, Quaternion.identity); // 원하는 위치로 수정
         }
         else
@@ -87,7 +88,14 @@ public class CraftingUI : MonoBehaviour
     private void OnMakeButtonClicked()
     {
         if (currentSelectedItem != null)
+            Invoke("ShowItemNotice", 1f);
             TryBuildItem(currentSelectedItem);
+    }
+
+
+    private void ShowItemNotice()
+    {
+        NoticeUI.Instance.Show($"[{currentSelectedItem.itemName}]가 설계도에 추가되었습니다.");
     }
 
     private bool HasResources(BuildItem item)
@@ -107,8 +115,6 @@ public class CraftingUI : MonoBehaviour
             playerInventory.SpendItem(req.resourceItem, req.requiredAmount);
         }
     }
-
-
 
 }
 
