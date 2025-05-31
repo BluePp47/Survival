@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class SoundManager : MonoBehaviour
         SoundEvents.OnUIClick += PlayUIClick;
         SoundEvents.OnPlaySFX += PlaySFX;
         SoundEvents.OnPlaySFX2 += PlaySFX;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDisable()
@@ -46,6 +48,7 @@ public class SoundManager : MonoBehaviour
         SoundEvents.OnUIClick -= PlayUIClick;
         SoundEvents.OnPlaySFX -= PlaySFX;
         SoundEvents.OnPlaySFX2 -= PlaySFX;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     // bgm 재생
@@ -84,5 +87,18 @@ public class SoundManager : MonoBehaviour
     {
         if (clip != null)
             sfxSource.PlayOneShot(clip[Random.Range(0,clip.Length)]);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        AudioListener[] listeners = FindObjectsOfType<AudioListener>();
+
+        foreach (var listener in listeners)
+        {
+            if (listener.gameObject.scene != scene) // 현재 씬이 아닌 경우 삭제
+            {
+                Destroy(listener.gameObject);
+            }
+        }
     }
 }
