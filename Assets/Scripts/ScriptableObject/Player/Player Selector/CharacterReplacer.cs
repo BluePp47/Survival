@@ -1,19 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
-using UnityEngine;
-using System.Collections;
 
 public class CharacterReplacer : MonoBehaviour
 {
     [SerializeField] private GameObject[] characterModels; // 외형 프리팹들
     [SerializeField] private Transform modelParent;        // Player의 자식 Transform
 
+    private Animator playerAnimator;
+
     void Start()
     {
-        StartCoroutine(SpawnCharacterAfterFrame()); // 1프레임 기다린 뒤 캐릭터 생성
+        StartCoroutine(SpawnCharacterAfterFrame());
     }
 
     IEnumerator SpawnCharacterAfterFrame()
@@ -32,5 +29,25 @@ public class CharacterReplacer : MonoBehaviour
         GameObject model = Instantiate(characterModels[index], modelParent);
         model.transform.localPosition = Vector3.zero;
         model.transform.localRotation = Quaternion.identity;
+
+        // ✅ Animator 재연결
+        playerAnimator = model.GetComponent<Animator>();
+        if (playerAnimator == null)
+        {
+            Debug.LogError("❌ 새 모델에 Animator가 없습니다!");
+            yield break;
+        }
+
+        // ✅ PlayerController의 animator 필드에 할당
+        PlayerController controller = GetComponent<PlayerController>();
+        if (controller != null)
+        {
+            controller.SetAnimator(playerAnimator);
+            Debug.Log("✅ PlayerController에 새 Animator 연결 완료");
+        }
+        else
+        {
+            Debug.LogWarning("⚠ PlayerController가 현재 오브젝트에 없습니다!");
+        }
     }
 }

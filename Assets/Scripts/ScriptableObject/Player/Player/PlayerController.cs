@@ -468,4 +468,10 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         SoundEvents.OnPlaySFX2?.Invoke(attackAudio);
     }
 
+    public void SetAnimator(Animator newAnimator)
+    {
+        animator = newAnimator;
+    }
+
+
 }

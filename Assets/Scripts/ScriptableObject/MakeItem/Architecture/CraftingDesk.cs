@@ -2,20 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class CraftingDesk : MonoBehaviour
 {
     [SerializeField] GameObject deskinProductionUI;
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            deskinProductionUI.SetActive(true);
-            ToggleCursor();
-        }
-    }
 
     void ToggleCursor()
     {
@@ -34,5 +26,12 @@ public class CraftingDesk : MonoBehaviour
             // canLook = true;
         }
     }
-    
+
+    public void Interact()
+    {
+        deskinProductionUI.SetActive(true);
+        ToggleCursor();
+    }
 }
+
+    
