@@ -36,13 +36,9 @@ public class SceneLoader : MonoBehaviour
     }
     
     // Player가 문에 충돌시 LoadSceneWithPause() 실행
-    void OnCollisionEnter(Collision collision)
+    void Interact()
     {
-        Debug.Log("문에닿음");
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            LoadSceneWithPause();
-        }
+        LoadSceneWithPause();
     }
 }
     
