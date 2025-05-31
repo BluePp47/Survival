@@ -27,10 +27,14 @@ public class CraftingDesk : MonoBehaviour
         }
     }
 
+    public void ExitdeskinProductionUI()
+    {
+        deskinProductionUI.SetActive(false);       
+    }
+
     public void Interact()
     {
         deskinProductionUI.SetActive(true);
-        ToggleCursor();
     }
 }
 

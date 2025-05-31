@@ -8931,8 +8931,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 1.4599575, z: 0.13496757}
-  m_Center: {x: 0, y: 0.72997874, z: -0.26591632}
+  m_Size: {x: 0.5, y: 1.5236735, z: 0.18328834}
+  m_Center: {x: 0, y: 0.76183677, z: -0.241756}
 --- !u!114 &871925147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9367,7 +9367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 917662550}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.3677401, y: -0.013741821, z: 0.003255902, w: 0.9298214}
+  m_LocalRotation: {x: -0.3677401, y: -0.01374181, z: 0.0032558998, w: 0.9298214}
   m_LocalPosition: {x: 0.29653797, y: -6.6214, z: -3.5180125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9775,7 +9775,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 109}
-  m_SizeDelta: {x: 800, y: 151.45}
+  m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &957184434
 MonoBehaviour:
@@ -10491,13 +10491,14 @@ GameObject:
   - component: {fileID: 993507922}
   - component: {fileID: 993507921}
   - component: {fileID: 993507920}
+  - component: {fileID: 993507923}
   m_Layer: 5
   m_Name: NotificationWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &993507919
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10581,6 +10582,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &993507923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993507918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700b0b874423e482c8faddd5cd986e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noticePanel: {fileID: 993507918}
+  noticeText: {fileID: 1919995144}
+  displayDuration: 2
 --- !u!1 &997724951 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4cb625af0f30141c99aae80c10e5c607, type: 3}
@@ -10909,7 +10925,7 @@ GameObject:
   - component: {fileID: 1044542465}
   - component: {fileID: 1044542464}
   m_Layer: 0
-  m_Name: X
+  m_Name: XButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10990,13 +11006,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 497768724}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 497768728}
+        m_TargetAssemblyTypeName: CraftingDesk, Assembly-CSharp
+        m_MethodName: ExitdeskinProductionUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13092,7 +13108,7 @@ GameObject:
   - component: {fileID: 1308250705}
   - component: {fileID: 1308250708}
   m_Layer: 0
-  m_Name: MakeProduct
+  m_Name: CraftingUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15062,6 +15078,8 @@ MonoBehaviour:
     uiObject: {fileID: 1414000680}
   - name: Inventory
     uiObject: {fileID: 2026043771}
+  - name: Ekey
+    uiObject: {fileID: 923941120}
 --- !u!4 &1552196906
 Transform:
   m_ObjectHideFlags: 0
@@ -18871,10 +18889,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 957184433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -75.725}
-  m_SizeDelta: {x: 800, y: 91.45}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1919995143
 MonoBehaviour:
