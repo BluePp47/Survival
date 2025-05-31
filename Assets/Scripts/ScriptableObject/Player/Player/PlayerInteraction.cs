@@ -13,20 +13,23 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Start()
     {
-        UIController.Instance.CloseAllUI();
+        // UIController.Instance.CloseAllUI();
+        interactUI.SetActive(false);
     }
 
     public void OnInteraction()
     {
-        interactableObject.SendMessage("Interact", SendMessageOptions.DontRequireReceiver);
-
+        if(interactableObject != null)
+        {
+            interactableObject.SendMessage("Interact", SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
         CollisionObject(collision, "CraftingDesk", "제작대 열기");
         // CollisionObject(collision, "NPC", "NPC와 대화");
-        CollisionObject(collision, "Door", "밖으로 나가기");
+        CollisionObject(collision, "Door", "나가기");
     }
 
     void OnCollisionExit(Collision collision)
@@ -38,11 +41,6 @@ public class PlayerInteraction : MonoBehaviour
             interactUI.SetActive(false);
         }
 
-        // if(collision.gameObject.CompareTag("NPC"))
-        // {
-        //     interactableObject = null;
-        //     interactUI.SetActive(false);
-        // }
     }
 
     void CollisionObject(Collision collision, string tagName, string description)
@@ -56,4 +54,30 @@ public class PlayerInteraction : MonoBehaviour
 
     }
 
+
+    // 3DSurvibe씬에서는 Trigger씀.
+    private void OnTriggerEnter(Collider other) 
+    {
+        CollisionObject(other, "Door", "들어가기");
+    }
+        
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("Door"))
+        {
+            interactableObject = null;
+            interactUI.SetActive(false);
+        }
+    }
+
+    void CollisionObject(Collider other, string tagName, string description)
+    {
+        if(other.gameObject.CompareTag(tagName))
+        {
+            interactableObject = other.gameObject;
+            interactObjectName.text = description;
+            interactUI.SetActive(true);
+        }
+
+    }
 }
