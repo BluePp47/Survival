@@ -13,7 +13,9 @@ public class MainSetup : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         
-        SaveData data = SaveSystem.LoadGame(); // 데이터 불러오기
+        SaveData data = SaveSystem.LoadGame();
+        GameObject.Find("Inventory").GetComponent<Inventory>().LoadInventory(data.inventoryItems); // 데이터 불러오기
+        
         if (data.startNotice == false) // startNotice == false 일때만 실행 (처음 시작시 1번만 실행)
         {
         NoticeUI noticeUI = NoticeUI.Instance;

@@ -23,9 +23,19 @@ public class ResorceManager : MonoBehaviour
     }
 
 
-    public int GetAmount(ItemData item)
-    {
-        return inventory.ContainsKey(item) ? inventory[item] : 0;
+    public int GetAmount(ItemData targetItem)
+    {   
+        Inventory inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        List<InventoryItem> inventoryItems = inventory.items;
+        foreach (var item in inventoryItems)
+        {
+        if (item.data.displayName == targetItem.displayName) // 또는 item.data.id == targetItem.id
+        {
+            return item.quantity;
+        }
+        }
+
+    return 0;
     }
 
 }

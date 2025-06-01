@@ -6,6 +6,8 @@ public class StartSetup : MonoBehaviour
 {
     void Start()
     {
+        Time.timeScale = 1.0f;
+        
         SaveData data = SaveSystem.LoadGame();
         GameObject.Find("Inventory").GetComponent<Inventory>().LoadInventory(data.inventoryItems);
         foreach (var item in data.inventoryItems)
@@ -14,7 +16,6 @@ public class StartSetup : MonoBehaviour
         }
 
 
-        Time.timeScale = 1.0f;
         
         // UIController.Instance.CloseAllUI();
         // UIController.Instance.OpenUI("Condition");

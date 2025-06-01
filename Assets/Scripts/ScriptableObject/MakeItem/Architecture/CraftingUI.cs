@@ -113,6 +113,7 @@ public class CraftingUI : MonoBehaviour
         foreach (var req in item.materialRequirements)
         {
             playerInventory.SpendItem(req.resourceItem, req.requiredAmount);
+            SelectItem(item);
         }
     }
 
