@@ -114,5 +114,22 @@ public class Inventory : MonoBehaviour
 
             uiInventory.RefreshUI(items);
         }
-    }   
+    }
+
+    public void SaveInventory()
+    {
+        var saveData = GetSaveData(); // InventorySaveData
+        SaveSystem.SaveInventory(saveData);
+    }
+    public void LoadInventory()
+    {
+        var saveData = SaveSystem.LoadInventory();
+        LoadFromSaveData(saveData);
+
+        // UI 업데이트
+        uiInventory.RefreshUI(items);
+    }
+
+
+
 }
