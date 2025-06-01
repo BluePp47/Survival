@@ -95,7 +95,7 @@ public class CraftingUI : MonoBehaviour
 
     private void ShowItemNotice()
     {
-        NoticeUI.Instance.Show($"[{currentSelectedItem.itemName}]가/이 설계도에 추가되었습니다.");
+        NoticeUI.Instance.Show($"[{currentSelectedItem.itemName}]가/이 설계도에 추가되었습니다.", 1);
     }
 
     private bool HasResources(BuildItem item)
