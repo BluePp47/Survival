@@ -112,6 +112,7 @@ private struct NoticeMessage // 🔧
         }
     }
 
+
     // 🔧 메시지별로 저장된 시간 사용
     private IEnumerator DisplayQueue() // 🔧
     {

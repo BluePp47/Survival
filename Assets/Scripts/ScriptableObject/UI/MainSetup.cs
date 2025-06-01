@@ -5,24 +5,28 @@ using UnityEngine;
 public class MainSetup : MonoBehaviour
 {
     // Start is called before the first frame update
-
-
-    void Start()
+    [SerializeField] AudioClip noticeSound;
+    [SerializeField] private bool startNotice = false; 
+    private void Start()
     {
-        NoticeUI noticeUI = NoticeUI.Instance;
-
-        noticeUI.Show("사막에 왔다는게 너구나?", 1f);
-        noticeUI.Show("겁도 없이.... 아아, 들렸어?", 1.5f);
-        noticeUI.Show("보물을 찾으러 온거지? 밤이 되기 전에 찾을 수 있겠어??", 2f);
-        noticeUI.Show("사막의 밤은 꽤나 무섭거든. 내일이면 사막 어딘가에 네 몸이 굴러다니고 있을지도 몰라.", 2.5f);
-        noticeUI.Show("뭐...아주 좋은 방법을 내가 알고 있긴 해", 2f);
-        noticeUI.Show("원한다면 날 찾아와. 어디있는지까지 말해줘야 하는건 아니지?", 2.5f);
-        noticeUI.Show("좀있다 보자고. 아니면 이게 마지막 대화가 되던가. 깔깔", 2.5f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        Time.timeScale = 1.0f;
         
+        if (startNotice == false)
+        {
+        NoticeUI noticeUI = NoticeUI.Instance;
+        SoundManager.Instance.PlaySFX(noticeSound);
+
+        noticeUI.Show("사막에 왔다는게 너구나?", 1.5f);
+        noticeUI.Show("겁도 없이.... 아아, 들렸어?", 1.5f);
+        noticeUI.Show("보물을 찾으러 온거지? \n밤이 되기 전에 찾을 수 있겠어??", 2f);
+        noticeUI.Show("사막의 밤은 꽤나 무섭거든. \n내일이면 사막 어딘가에\n네 몸이 굴러다니고 있을지도 몰라.", 3.5f);
+        noticeUI.Show("뭐...아주 좋은 방법을 내가 알고 있긴 해", 2f);
+        noticeUI.Show("원한다면 날 찾아와. 어디있는지까지 말해줘야 하는건\n아니지?", 2.5f);
+        noticeUI.Show("좀있다 보자고. 아니면 이게 마지막 대화가 되던가. \n깔깔", 3f);
+        noticeUI.Show("\nNPC를 찾아가세요.\n\n당신이 사막에서 살아남을 수 있는 방법을 알려줄지도 모릅니다.\n\n", 5);
+        }
+        else return;
     }
+    // 대화 이후 startNotice = true 로 바꿔서 값 저장해야 함. 그래야 기지 안에 들어갔다가 나왔을 때 다시 대화 나오지 않음. 아직 구현 못함
 }
+
