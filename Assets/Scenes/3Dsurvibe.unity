@@ -6062,7 +6062,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665574377}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0506488, y: 0.90321666, z: -0.11119106, w: -0.41142553}
+  m_LocalRotation: {x: -0.050648794, y: 0.90321666, z: -0.11119104, w: -0.41142553}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6513,7 +6513,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691737477}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.050648797, y: 0.90321666, z: -0.11119106, w: -0.41142547}
+  m_LocalRotation: {x: -0.05064879, y: 0.90321666, z: -0.11119105, w: -0.41142547}
   m_LocalPosition: {x: -3.9442558, y: -18.19, z: -2.411683}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9510,6 +9510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noticeSound: {fileID: 8300000, guid: c308ba05fdf8c47f59adb4e225ca1140, type: 3}
+  startNotice: 0
 --- !u!4 &1035864398
 Transform:
   m_ObjectHideFlags: 0
@@ -18478,12 +18479,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueList:
-  - dialogue: "\uC548\uB155\uD558\uC138\uC694"
+  - dialogue: "\uC6A9\uCF00 \uCC3E\uC558\uB124?"
     Selections: []
     events: []
-  - dialogue: "\uD544\uC694\uD558\uC2E0\uAC8C \uC788\uB098\uC694?"
+  - dialogue: "\uC790, \uBC1B\uC544. \uC88B\uC740\uAC70\uB77C\uAD6C. \uB124\uAC00
+      \uC81C\uB300\uB85C \uC0AC\uC6A9\uD560 \uC904 \uC548\uB2E4\uBA74 \uB9D0\uC57C."
     Selections:
-    - "\uC548\uB155\uD558\uC138\uC694"
+    - "\uC790\uC138\uD788 \uB4E4\uC5EC\uB2E4\uBCF8\uB2E4."
     - "\uBB34\uC2DC\uD55C\uB2E4"
     events:
     - m_PersistentCalls:
@@ -18550,7 +18552,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - dialogue: "\uAC74\uCD95\uC5D0 \uD544\uC694\uD55C \uC124\uACC4\uB3C4\uB97C \uB4DC\uB838\uC5B4\uC694"
+  - dialogue: "\uAC74\uCD95\uC5D0 \uD544\uC694\uD55C \uC124\uACC4\uB3C4\uB97C \uC5BB\uC5C8\uB2E4."
     Selections: []
     events: []
   buttons:
