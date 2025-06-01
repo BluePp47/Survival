@@ -7,6 +7,7 @@ public class MainSetup : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] AudioClip noticeSound;
+    
     // [SerializeField] public bool startNotice = false; 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class MainSetup : MonoBehaviour
         noticeUI.Show("겁도 없이.... 아아, 들렸어?", 2f);
         noticeUI.Show("보물을 찾으러 온거지? \n밤이 되기 전에 찾을 수 있겠어??", 3f);
         noticeUI.Show("사막의 밤은 꽤나 무섭거든. \n내일이면 사막 어딘가에\n네 몸이 굴러다니고 있을지도 몰라.", 4f);
-        noticeUI.Show("뭐...아주 좋은 방법을 내가 알고 있긴 해", 3f);
+        noticeUI.Show("뭐...밤을 안전하게 보내기 위한\n아주 좋은 방법을 내가 알고 있긴 해", 3f);
         noticeUI.Show("원한다면 날 찾아와. 어디있는지까지 말해줘야 하는건\n아니겠지?", 3f);
         noticeUI.Show("좀있다 보자고. 아니면 이게 마지막 대화가 되던가. \n깔깔", 3f);
         noticeUI.Show("\n< NPC를 찾아가세요 >\n\n당신이 사막에서 살아남을 수 있는 방법을\n알려줄지도 모릅니다.\n\n", 5);        

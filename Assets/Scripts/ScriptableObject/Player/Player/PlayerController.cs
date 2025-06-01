@@ -82,6 +82,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     public PlayerCondition thirstCondition;
     public PlayerCondition staminaCondition;
 
+
     void Start()
     {
         if (starterAxe != null)
