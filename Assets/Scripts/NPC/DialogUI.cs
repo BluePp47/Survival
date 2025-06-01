@@ -32,6 +32,11 @@ public class DialogUI : MonoBehaviour
         ShowDialog();
     }
 
+    public void SayHi()
+    {
+        _currentIndex++;
+        ShowDialog();
+    }
     private void ShowDialog()
     {
         Dialogues current = dialogueList[_currentIndex];
