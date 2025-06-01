@@ -2803,7 +2803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   startValue: 100
-  maxValue: 0
+  maxValue: 100
   passiveChangePerSecond: 0
   uiBar: {fileID: 1253954602}
   curValue: 0
@@ -6062,7 +6062,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665574377}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.050648794, y: 0.90321666, z: -0.11119104, w: -0.41142553}
+  m_LocalRotation: {x: -0.0506488, y: 0.90321666, z: -0.11119106, w: -0.41142553}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6513,7 +6513,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691737477}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.05064879, y: 0.9032167, z: -0.11119105, w: -0.4114255}
+  m_LocalRotation: {x: -0.050648797, y: 0.9032167, z: -0.11119106, w: -0.4114255}
   m_LocalPosition: {x: -3.9442558, y: -18.19, z: -2.411683}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -18758,6 +18758,10 @@ PrefabInstance:
       propertyPath: staminaCondition
       value: 
       objectReference: {fileID: 1086680891}
+    - target: {fileID: 5022611600178746147, guid: c7584e6a924754d1d9ad898330cdd041, type: 3}
+      propertyPath: hungerDecreaseRate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 979682889024607958, guid: c7584e6a924754d1d9ad898330cdd041, type: 3}
     m_RemovedGameObjects: []
