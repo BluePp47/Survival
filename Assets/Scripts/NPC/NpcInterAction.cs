@@ -1,29 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NpcInterAction : MonoBehaviour
 {
-    public GameObject Dialog;  // 열고 닫을 UI 오브젝트
+    public GameObject Dialog; 
 
-    public void OnTriggerEnter(Collider other)
+    private bool wasClosedByPlayer = false; 
+
+    private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.gameObject.CompareTag("Player")) 
+        if (other.CompareTag("Player"))
         {
-            Debug.Log("active");
-            Dialog.SetActive(true);
+            if (!wasClosedByPlayer)
+            {
+                Debug.Log("active");
+                Dialog.SetActive(true);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-       
         if (other.CompareTag("Player"))
         {
             Debug.Log("deactive");
             Dialog.SetActive(false);
+            wasClosedByPlayer = false; 
         }
+    }
+
+    public void CloseDialogManually()
+    {
+        Dialog.SetActive(false);
+        wasClosedByPlayer = true;
     }
 }
