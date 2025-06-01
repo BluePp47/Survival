@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 
 public class MainSetup : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] AudioClip noticeSound;
-    [SerializeField] private bool startNotice = false; 
+    // [SerializeField] public bool startNotice = false; 
     private void Start()
     {
         Time.timeScale = 1.0f;
         
-        if (startNotice == false)
+        SaveData data = SaveSystem.LoadGame(); // 데이터 불러오기
+        if (data.startNotice == false) // startNotice == false 일때만 실행 (처음 시작시 1번만 실행)
         {
         NoticeUI noticeUI = NoticeUI.Instance;
         SoundManager.Instance.PlaySFX(noticeSound);
@@ -24,13 +26,13 @@ public class MainSetup : MonoBehaviour
         noticeUI.Show("원한다면 날 찾아와. 어디있는지까지 말해줘야 하는건\n아니겠지?", 3f);
         noticeUI.Show("좀있다 보자고. 아니면 이게 마지막 대화가 되던가. \n깔깔", 3f);
         noticeUI.Show("\n< NPC를 찾아가세요 >\n\n당신이 사막에서 살아남을 수 있는 방법을\n알려줄지도 모릅니다.\n\n", 5);        
+        
+        data.startNotice = true; // 또 나오지 않게 true로 변경.
+        SaveSystem.SaveGame(data);
+        Debug.Log("데이터가 저장되었습니다");
         }
         else return;
+   
     }
-    // 대화 이후 startNotice = true 로 바꿔서 값 저장해야 함. 그래야 기지 안에 들어갔다가 나왔을 때 다시 대화 나오지 않음. 아직 구현 못함
-
-    
-
-
 }
 
