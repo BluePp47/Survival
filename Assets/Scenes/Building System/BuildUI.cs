@@ -39,12 +39,10 @@ public class BuildUI : MonoBehaviour
     public void OnClickExit()
     {
         BuildingUI.SetActive(false);
-        Inventory.SetActive(true);
     }
 
     public void EnterBuildingSystem()
     {
         BuildingUI.SetActive(true);
-        Inventory.SetActive(false);
     }
 }

@@ -13,7 +13,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Start()
     {
-        UIController.Instance.CloseAllUI();
+        // UIController.Instance.CloseAllUI();
+        interactUI.SetActive(false);
     }
 
     public void OnInteraction()
