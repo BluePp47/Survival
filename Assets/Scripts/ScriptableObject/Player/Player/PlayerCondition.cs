@@ -43,6 +43,8 @@ public class PlayerCondition : MonoBehaviour
 
     public void Subtract(float value)
     {
+        float oldValue = curValue;
         curValue = Mathf.Max(curValue - value, 0);
     }
+
 }

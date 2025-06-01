@@ -32,22 +32,17 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
     
 
     [Header("체력 관련")]
-    public Slider healthSlider;
     public DamageFlashUI damageFlashUI;
     public float invincibleTime = 1.5f;
 
     [Header("배고픔 관련")]
-    public Image hungerFillImage;
     public float maxHunger = 100f;
     public float hungerDecreaseRate = 2f;
 
     [Header("목마름 관련")]
-    public Slider thirstSlider;
     public float maxThirst = 100f;
     public float thirstDecreaseRate = 1.0f;
 
-    [Header("스태미나 관련")]
-    public Slider staminaSlider;
 
     private bool isInvincible = false;
     private bool isBlocking = false;
@@ -252,7 +247,8 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     void DecreaseHunger()
     {
-        hungerCondition?.Subtract(hungerDecreaseRate * Time.deltaTime);
+        float decrease = hungerDecreaseRate * Time.deltaTime;
+        hungerCondition?.Subtract(decrease);
     }
 
     void DecreaseThirst()
@@ -310,6 +306,11 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
 
     public override void TakeDamage(int attackerPower)
     {
+        Debug.Log($"[TakeDamage] 받은 공격력: {attackerPower}");
+        if (healthCondition == null)
+        {
+            Debug.LogError("❌ healthCondition이 null입니다! PlayerCondition(type: Health) 연결 안 됨.");
+        }
         if (isDead || isInvincible) return;
 
         float finalDamage = attackerPower;
@@ -329,6 +330,8 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
         int damage = Mathf.RoundToInt(finalDamage * (1f - defensePercent));
 
         healthCondition?.Subtract(damage);
+        Debug.Log($"[TakeDamage] 계산된 데미지: {damage}");
+
 
         if (damageFlashUI != null)
             damageFlashUI.Flash();
@@ -337,6 +340,7 @@ public class PlayerController : BaseCharacterController, IInventoryHolder
             Die();
         else
             StartCoroutine(InvincibilityCoroutine());
+
     }
 
 
