@@ -211,4 +211,40 @@ public class UIInventory : MonoBehaviour
         buildUI.EnterBuildingSystem(); 
     }
 
+//         public SaveData GetSaveData()
+//     {
+//         SaveData data = new SaveData();
+
+//         foreach (var item in inventory.items)
+//         {
+//             data.inventoryItems.Add(new InventoryItemSaveData
+//             {
+//                 itemID = item.data.displayName,
+//                 quantity = item.quantity,
+//                 isEquipped = item.isEquipped
+//             });
+//         }
+
+//     return data;
+// }
+//     public void LoadInventory(List<InventoryItemSaveData> savedItems)
+//     {
+//         inventory.items.Clear();
+
+//         foreach (var saved in savedItems)
+//         {
+//             ItemData itemData = ItemDatabase.GetItemById(saved.itemID); // 데이터베이스에서 ID로 찾아오기
+//             if (itemData != null)
+//             {
+//                 inventory.items.Add(new InventoryItem(itemData, saved.quantity)
+//                 {
+//                     isEquipped = saved.isEquipped
+//                 });
+//             }
+//         }
+
+//         RefreshUI(inventory.items);
+//     }
+
+
 }

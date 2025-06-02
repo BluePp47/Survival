@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class StartSetup : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1.0f;
+        
+        SaveData data = SaveSystem.LoadGame();
+        GameObject.Find("Inventory").GetComponent<Inventory>().LoadInventory(data.inventoryItems);
+        foreach (var item in data.inventoryItems)
+        {
+        Debug.Log($"[불러옴] {item.itemID}, 수량: {item.quantity}");
+        }
+                
         UIController.Instance.CloseAllUI();
         UIController.Instance.OpenUI("Condition");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
