@@ -14,11 +14,9 @@ public class StartSetup : MonoBehaviour
         {
         Debug.Log($"[불러옴] {item.itemID}, 수량: {item.quantity}");
         }
-
-
-        
-        // UIController.Instance.CloseAllUI();
-        // UIController.Instance.OpenUI("Condition");
+                
+        UIController.Instance.CloseAllUI();
+        UIController.Instance.OpenUI("Condition");
     }
 
 }
