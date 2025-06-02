@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
-    public bool startNotice = true; // 시작 알림창
+    public bool startNotice = false; // 시작 알림창
     public List<InventoryItemSaveData> inventoryItems = new List<InventoryItemSaveData>();
 }
 
