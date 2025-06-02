@@ -59,6 +59,7 @@ public class NoticeUI : MonoBehaviour
     // 메시지와 시간 둘 다 받음
     public void Show(string message, float time) 
     {
+        gameObject.SetActive(true);
         messageQueue.Enqueue(new NoticeMessage(message, time)); 
 
         if (displayCoroutine == null)
