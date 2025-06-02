@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class CraftingDesk : MonoBehaviour
 {
     [SerializeField] GameObject deskinProductionUI;
-
     void ToggleCursor()
     {
         bool isLocked = Cursor.lockState == CursorLockMode.Locked;

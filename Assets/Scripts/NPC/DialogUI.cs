@@ -32,6 +32,11 @@ public class DialogUI : MonoBehaviour
         ShowDialog();
     }
 
+    public void SayHi()
+    {
+        _currentIndex++;
+        ShowDialog();
+    }
     private void ShowDialog()
     {
         Dialogues current = dialogueList[_currentIndex];
@@ -59,12 +64,17 @@ public class DialogUI : MonoBehaviour
             var choiceText = choiceButton.transform.GetComponentInChildren<TMP_Text>();
             choiceText.text = current.Selections[i];
         }
+        
     }
 
     private void OnNextButtonPressed()
     {
         if (IsLastDialog())
+        {
             gameObject.SetActive(false);
+            NoticeUI.Instance.Show("인벤토리에 설계도 버튼이 추가되었습니다.", 2);
+            NoticeUI.Instance.Show("설계도를 열어 기지를 건설하세요.", 2);
+        }
 
         else
         {
