@@ -114,5 +114,51 @@ public class Inventory : MonoBehaviour
 
             uiInventory.RefreshUI(items);
         }
-    }   
+    }
+     
+     // 인벤토리 내역 저장
+    public SaveData GetSaveData()
+    {
+        SaveData data = new SaveData();
+
+        foreach (var item in items)
+        {
+            data.inventoryItems.Add(new InventoryItemSaveData
+            {
+                itemID = item.data.displayName,
+                quantity = item.quantity,
+                isEquipped = item.isEquipped
+            });
+        }
+
+        return data;
+    }
+
+    // 인벤토리 내역 불러오기
+    public void LoadInventory(List<InventoryItemSaveData> savedItems)
+    {
+            if (uiInventory == null)
+    {
+        uiInventory = FindObjectOfType<UIInventory>();
+        if (uiInventory == null)
+            Debug.LogError("❌ UIInventory를 씬에서 찾지 못했습니다.");
+    }
+        Debug.Log("📦 LoadInventory 호출됨");
+        items.Clear();
+
+        foreach (var saved in savedItems)
+        {
+            ItemData itemData = ItemDatabaseManager.Instance.GetItemById(saved.itemID);
+            if (itemData != null)
+            {
+                items.Add(new InventoryItem(itemData, saved.quantity)
+                {
+                    isEquipped = saved.isEquipped
+                });
+            }
+        }
+        
+
+        uiInventory.RefreshUI(items);
+    }
 }

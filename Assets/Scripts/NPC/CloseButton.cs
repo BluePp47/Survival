@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CloseButton : MonoBehaviour
 {
-    GameObject npcWindow;
-    
+    [SerializeField] private NpcInterAction npcInteraction;
+
     public void CloseButtonPressed()
     {
-        npcWindow.SetActive(false);
+        npcInteraction.CloseDialogManually();
     }
 }
