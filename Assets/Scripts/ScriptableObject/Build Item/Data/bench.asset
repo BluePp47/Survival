@@ -18,5 +18,5 @@ MonoBehaviour:
   itemDescription: "\uC549\uC544\uC11C \uC274 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   materialRequirements:
   - resourceItem: {fileID: 11400000, guid: 94f5dcd824ece3d4db148d2655279291, type: 2}
-    requiredAmount: 5
+    requiredAmount: 3
   buildItemDatabase: {fileID: 0}

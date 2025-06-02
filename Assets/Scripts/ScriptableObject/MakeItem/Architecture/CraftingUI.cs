@@ -74,28 +74,26 @@ public class CraftingUI : MonoBehaviour
     {
         if (HasResources(item))
         {
+            ShowItemNotice();
             SpendResources(item);
-            Debug.Log("설계도에 추가되었습니다");
-            
             // 설계도에 추가하기.  nstantiate(item.prefab, Vector3.zero, Quaternion.identity); // 원하는 위치로 수정
         }
         else
         {
-            Debug.Log("Not enough resources!");
+            NoticeUI.Instance.Show("재료가 부족합니다.");
         }
     }
 
     private void OnMakeButtonClicked()
     {
         if (currentSelectedItem != null)
-            Invoke("ShowItemNotice", 1f);
             TryBuildItem(currentSelectedItem);
     }
 
 
     private void ShowItemNotice()
-    {
-        NoticeUI.Instance.Show($"[{currentSelectedItem.itemName}]가/이 설계도에 추가되었습니다.", 1);
+    {   
+        NoticeUI.Instance.Show($"[{currentSelectedItem.itemName}]가/이 설계도에 추가되었습니다.");
     }
 
     private bool HasResources(BuildItem item)
@@ -113,6 +111,7 @@ public class CraftingUI : MonoBehaviour
         foreach (var req in item.materialRequirements)
         {
             playerInventory.SpendItem(req.resourceItem, req.requiredAmount);
+            SelectItem(item);
         }
     }
 

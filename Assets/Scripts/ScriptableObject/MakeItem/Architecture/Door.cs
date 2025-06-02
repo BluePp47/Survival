@@ -2,24 +2,42 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class SceneLoader : MonoBehaviour
+public class Door : MonoBehaviour
 {
+
+    public Inventory inventory;
     public GameObject loadingUI; // Inspector에서 할당
 
     public void LoadSceneWithPause_Enter()
     {
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        SaveData data = inventory.GetSaveData();
+        SaveSystem.SaveGame(data);
+        foreach (var item in data.inventoryItems)
+        {
+            Debug.Log($"저장되는 아이템: {item.itemID}, 수량: {item.quantity}");
+        }
         StartCoroutine(EnterBuilding());
     }
 
     public void LoadSceneWithPause_Exit()
     {
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        SaveData data = inventory.GetSaveData();
+        SaveSystem.SaveGame(data);
+        foreach (var item in data.inventoryItems)
+        {
+            Debug.Log($"저장되는 아이템: {item.itemID}, 수량: {item.quantity}");
+        }
+
         StartCoroutine(ExitBuilding());
     }
 
-    public 
 
     IEnumerator EnterBuilding()
-    {
+    {   
+ // SaveSystem은 당신의 저장 로직 클래스
+
         // 모든 게임 정지
         Time.timeScale = 0f;
 
@@ -37,13 +55,13 @@ public class SceneLoader : MonoBehaviour
         {
             yield return null;
         }
-
-        // 씬 로드 완료 후 원래 속도 복구 (필요한 경우)
-        Time.timeScale = 1f;
     }
 
         IEnumerator ExitBuilding()
     {
+        SaveData data = inventory.GetSaveData();
+        SaveSystem.SaveGame(data); // SaveSystem은 당신의 저장 로직 클래스
+
         // 모든 게임 정지
         Time.timeScale = 0f;
 
@@ -61,9 +79,6 @@ public class SceneLoader : MonoBehaviour
         {
             yield return null;
         }
-
-        // 씬 로드 완료 후 원래 속도 복구 (필요한 경우)
-        Time.timeScale = 1f;
     }
 
     
