@@ -12,31 +12,25 @@ public class MainSetup : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1.0f;
-        
-        SaveData data = SaveSystem.LoadGame();
-            if (data == null)
-    {
-        Debug.LogError("❌ SaveData가 null입니다!");
-        return;
-    }
-       var inventoryGO = GameObject.Find("Inventory");
-    if (inventoryGO == null)
-    {
-        Debug.LogError("❌ 'Inventory'라는 이름의 GameObject를 찾을 수 없습니다!");
-        return;
+        StartCoroutine(DelayedLoad());
     }
 
-    var inventory = inventoryGO.GetComponent<Inventory>();
+private IEnumerator DelayedLoad()
+{
+    yield return null; // 한 프레임 대기 → Inventory 오브젝트가 준비될 때까지 기다림
+
+    SaveData data = SaveSystem.LoadGame();
+    Inventory inventory = FindObjectOfType<Inventory>();
+
     if (inventory == null)
     {
-        Debug.LogError("❌ 'Inventory' GameObject에 Inventory 컴포넌트가 없습니다!");
-        return;
+        Debug.LogError("❌ Inventory를 찾을 수 없습니다 (MainSetup)");
+    }
+    else
+    {
+        inventory.LoadInventory(data.inventoryItems);
     }
 
-    // inventory.LoadInventory(data.inventoryItems);
-
-    //     GameObject.Find("Inventory").GetComponent<Inventory>().LoadInventory(data.inventoryItems); // 데이터 불러오기
-        
         UIController.Instance.CloseAllUI();
         UIController.Instance.OpenUI("Condition");
         if (data.startNotice == false) // startNotice == false 일때만 실행 (처음 시작시 1번만 실행)
@@ -57,8 +51,7 @@ public class MainSetup : MonoBehaviour
         SaveSystem.SaveGame(data);
         Debug.Log("데이터가 저장되었습니다");
         }
-        else return;
-   
+
     }
 }
 

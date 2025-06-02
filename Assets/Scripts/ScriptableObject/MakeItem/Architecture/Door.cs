@@ -10,7 +10,7 @@ public class Door : MonoBehaviour
 
     public void LoadSceneWithPause_Enter()
     {
-        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        inventory = FindObjectOfType<Inventory>();
         SaveData data = inventory.GetSaveData();
         SaveSystem.SaveGame(data);
         foreach (var item in data.inventoryItems)
@@ -22,7 +22,7 @@ public class Door : MonoBehaviour
 
     public void LoadSceneWithPause_Exit()
     {
-        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        inventory = FindObjectOfType<Inventory>();
         SaveData data = inventory.GetSaveData();
         SaveSystem.SaveGame(data);
         foreach (var item in data.inventoryItems)
