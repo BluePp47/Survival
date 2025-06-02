@@ -14,8 +14,31 @@ public class MainSetup : MonoBehaviour
         Time.timeScale = 1.0f;
         
         SaveData data = SaveSystem.LoadGame();
-        GameObject.Find("Inventory").GetComponent<Inventory>().LoadInventory(data.inventoryItems); // 데이터 불러오기
+            if (data == null)
+    {
+        Debug.LogError("❌ SaveData가 null입니다!");
+        return;
+    }
+       var inventoryGO = GameObject.Find("Inventory");
+    if (inventoryGO == null)
+    {
+        Debug.LogError("❌ 'Inventory'라는 이름의 GameObject를 찾을 수 없습니다!");
+        return;
+    }
+
+    var inventory = inventoryGO.GetComponent<Inventory>();
+    if (inventory == null)
+    {
+        Debug.LogError("❌ 'Inventory' GameObject에 Inventory 컴포넌트가 없습니다!");
+        return;
+    }
+
+    // inventory.LoadInventory(data.inventoryItems);
+
+    //     GameObject.Find("Inventory").GetComponent<Inventory>().LoadInventory(data.inventoryItems); // 데이터 불러오기
         
+        UIController.Instance.CloseAllUI();
+        UIController.Instance.OpenUI("Condition");
         if (data.startNotice == false) // startNotice == false 일때만 실행 (처음 시작시 1번만 실행)
         {
         NoticeUI noticeUI = NoticeUI.Instance;

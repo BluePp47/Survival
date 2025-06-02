@@ -16974,20 +16974,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiList:
-  - name: Inventory
-    uiObject: {fileID: 136230216}
-  - name: npcWindow
-    uiObject: {fileID: 1592510835888532787}
+  - name: Condition
+    uiObject: {fileID: 1960086881}
+  - name: Dialog
+    uiObject: {fileID: 3933830145197175370}
   - name: NotificationWindow
     uiObject: {fileID: 826116712}
-  - name: InteractUI
-    uiObject: {fileID: 8138188}
-  - name: Condition
-    uiObject: {fileID: 0}
   - name: Ending
     uiObject: {fileID: 1309272553118078238}
-  - name: BuildingUI
-    uiObject: {fileID: 528570395}
+  - name: BuildingWindow
+    uiObject: {fileID: 925776320}
+  - name: InteractUI
+    uiObject: {fileID: 8138188}
+  - name: LodingUI
+    uiObject: {fileID: 189784487}
 --- !u!4 &1919786228
 Transform:
   m_ObjectHideFlags: 0
