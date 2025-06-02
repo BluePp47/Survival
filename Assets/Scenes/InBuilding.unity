@@ -15182,8 +15182,6 @@ MonoBehaviour:
     uiObject: {fileID: 743872327}
   - name: Condition
     uiObject: {fileID: 1414000680}
-  - name: Inventory
-    uiObject: {fileID: 2026043771}
 --- !u!4 &1552196906
 Transform:
   m_ObjectHideFlags: 0
